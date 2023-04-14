@@ -6,8 +6,15 @@ public class EnemyModel : MonoBehaviour
 {
     public float range;
     public float angle = 120;
+    public float speed;
+    Rigidbody _rb;
     public LayerMask layer;
     //public GameObject lights;
+
+    private void Awake()
+    {
+        _rb = GetComponent<Rigidbody>();
+    }
 
     public bool CheckRange(Transform target)
     {
@@ -41,6 +48,19 @@ public class EnemyModel : MonoBehaviour
         //{
         //    lights.SetActive(v);
         //}
+    }
+
+    public void Move(Vector3 dir)
+    {
+        Vector3 dirSpeed = dir * speed;
+        dirSpeed.y = _rb.velocity.y;
+        _rb.velocity = dirSpeed;
+    }
+
+    public void LookDir(Vector3 dir)
+    {
+        if (dir == Vector3.zero) return;
+        transform.forward = dir;
     }
 
     private void OnDrawGizmos()
