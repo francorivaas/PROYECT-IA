@@ -24,5 +24,8 @@ public class PlayerModel : MonoBehaviour
         if (dir == Vector3.zero) return;
         transform.forward = dir;
     }
+
+    public Vector3 GetForward => transform.forward;
+    public float GetSpeed => rb.velocity.magnitude;
 }
 

@@ -5,8 +5,10 @@ using static UnityEditor.SceneView;
 
 public class EnemyController : MonoBehaviour
 {
+      
     EnemyModel model;
-    public Transform target;
+    public PlayerModel target;
+    public float time;
     ISteering _steering;
 
     private void Awake()
@@ -21,7 +23,7 @@ public class EnemyController : MonoBehaviour
         model.Move(dir);
         model.LookDir(dir);
 
-        if (model.CheckRange(target) && model.CheckAngle(target) && model.CheckView(target))
+        if (model.CheckRange(target.transform) && model.CheckAngle(target.transform) && model.CheckView(target.transform))
         {
             print("dentro");
             model.SetLights(true);
@@ -35,7 +37,9 @@ public class EnemyController : MonoBehaviour
 
     void InitializeSteering()
     {
-        var seek = new Seek(transform, target);
+        var seek = new Seek(transform, target.transform);
+        var flee = new Flee(transform, target.transform);
+        var pursuit = new Pursuit(target, transform, time);
         _steering = seek;
     }
 }

@@ -63,6 +63,9 @@ public class EnemyModel : MonoBehaviour
         transform.forward = dir;
     }
 
+    public Vector3 GetForward => transform.forward;
+    public float GetSpeed => _rb.velocity.magnitude;
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.black;
