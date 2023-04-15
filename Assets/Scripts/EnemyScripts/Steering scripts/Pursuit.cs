@@ -15,9 +15,11 @@ public class Pursuit : ISteering
         _time = time;
     }
 
-    public Vector3 GetDir()
+    public virtual Vector3 GetDir()
     {
-        Vector3 point = _target.transform.position + _target.GetForward * _target.GetSpeed * _time;
+        float distance = Vector3.Distance(_origin.position, _target.transform.position);
+
+        Vector3 point = _target.transform.position + _target.GetForward * Mathf.Clamp(_target.GetSpeed * _time, 0, distance);
         return (point - _origin.position).normalized;
     }
 }

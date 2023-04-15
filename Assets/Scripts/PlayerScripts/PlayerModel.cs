@@ -22,6 +22,7 @@ public class PlayerModel : MonoBehaviour
     public void LookDirection(Vector3 dir)
     {
         if (dir == Vector3.zero) return;
+        dir.y = 0; //Sacar una vez que utilizemos Y
         transform.forward = dir;
     }
 
