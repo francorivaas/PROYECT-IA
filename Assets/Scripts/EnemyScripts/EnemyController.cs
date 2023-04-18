@@ -49,6 +49,6 @@ public class EnemyController : MonoBehaviour
         var pursuit = new Pursuit(target, transform, time);
         var evade = new Evade(target, transform, time);
         _obsAvoidance = new ObstacleAvoidance(transform, radius, mask, maxObstacles, angle);
-        _steering = seek;
+        _steering = pursuit;
     }
 }

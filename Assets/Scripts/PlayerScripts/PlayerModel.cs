@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerModel : MonoBehaviour
 {
     private Rigidbody rb;
+    public GameObject model;
+    public float rotationSpeed;
     public float speed;
 
     private void Awake()
@@ -23,7 +25,7 @@ public class PlayerModel : MonoBehaviour
     {
         if (dir == Vector3.zero) return;
         dir.y = 0; //Sacar una vez que utilizemos Y
-        transform.forward = dir;
+        model.transform.forward = Vector3.RotateTowards(model.transform.forward, dir, Time.deltaTime * rotationSpeed, 0f);
     }
 
     public Vector3 GetForward => transform.forward;
