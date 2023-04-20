@@ -4,24 +4,31 @@ using UnityEngine;
 
 public class ClownIdleState<T> : ClownStateBase<T>
 {
-    float randomTime;
-
     public override void Awake()
     {
         base.Awake();
-        randomTime = clown.GetRandomTime();
+        var timer = clown.GetRandomTime();
+        clown.CurrentTimer = timer;
     }
 
     public override void Execute()
     {
         base.Execute();
-        if (randomTime > 0) 
+        clown.RunTimer();
+
+        if (clown.CurrentTimer > 0)
         {
-            randomTime -= Time.deltaTime;
+            clown.RunTimer();
         }
         else
         {
 
         }
+    }
+
+    public override void Sleep()
+    {
+        base.Sleep();
+        clown.CurrentTimer = 0;
     }
 }
