@@ -2,17 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClownDiedState : MonoBehaviour
+public class ClownDiedState<T> : ClownStateBase<T>
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Awake()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        base.Awake();
+        clown.Dead();
     }
 }

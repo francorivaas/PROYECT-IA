@@ -2,17 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClownIdleState : MonoBehaviour
+public class ClownIdleState<T> : ClownStateBase<T>
 {
-    // Start is called before the first frame update
-    void Start()
+    float randomTime;
+
+    public override void Awake()
     {
-        
+        base.Awake();
+        randomTime = clown.GetRandomTime();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Execute()
     {
-        
+        base.Execute();
+        if (randomTime > 0) 
+        {
+            randomTime -= Time.deltaTime;
+        }
+        else
+        {
+
+        }
     }
 }

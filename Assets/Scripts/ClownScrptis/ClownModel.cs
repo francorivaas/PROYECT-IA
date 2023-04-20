@@ -6,7 +6,7 @@ public class ClownModel : MonoBehaviour
 {
     public float jumpSpeed;
     public Vector2 range;
-
+    public float maxTime;
     private Rigidbody body;
 
     private void Awake()
@@ -25,6 +25,11 @@ public class ClownModel : MonoBehaviour
     public void Jump(Vector3 direction)
     {
         body.AddForce(direction * jumpSpeed, ForceMode.Impulse);
+    }
+
+    public float GetRandomTime()
+    {
+        return Random.Range(0, maxTime);
     }
 
     public void Dead()
