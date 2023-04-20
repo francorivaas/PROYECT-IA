@@ -32,13 +32,11 @@ public class EnemyController : MonoBehaviour
 
         if (model.CheckRange(target.transform) && model.CheckAngle(target.transform) && model.CheckView(target.transform))
         {
-            print("dentro");
             model.SetLights(true);
         }
         else
         {
             model.SetLights(false);
-            print("no está dentro kj");
         }
     }
 
