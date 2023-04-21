@@ -8,5 +8,6 @@ public enum ClownStateEnum
     Idle,
     Jump,
     Attack,
-    Dead
+    Dead,
+    Move
 }

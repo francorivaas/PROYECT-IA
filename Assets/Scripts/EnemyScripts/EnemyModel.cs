@@ -71,7 +71,7 @@ public class EnemyModel : MonoBehaviour
         Gizmos.color = Color.black;
         Gizmos.DrawWireSphere(transform.position, range);
 
-        Gizmos.DrawRay(transform.position, Quaternion.Euler(0, angle / 2, 0) * transform.forward * range); //se multiplica por
-        Gizmos.DrawRay(transform.position, Quaternion.Euler(0, -angle / 2, 0) * transform.forward * range); //range para que el vector
+        Gizmos.DrawRay(transform.position, Quaternion.Euler(0, angle / 2, 0) * -transform.forward * range); //se multiplica por
+        Gizmos.DrawRay(transform.position, Quaternion.Euler(0, -angle / 2, 0) * -transform.forward * range); //range para que el vector
     }
 }
