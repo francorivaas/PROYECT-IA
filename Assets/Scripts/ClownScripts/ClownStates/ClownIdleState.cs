@@ -22,7 +22,7 @@ public class ClownIdleState<T> : ClownStateBase<T>
         }
         else
         {
-
+            
         }
     }
 

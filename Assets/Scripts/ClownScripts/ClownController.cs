@@ -58,14 +58,14 @@ public class ClownController : MonoBehaviour
         var attack = new TreeAction(ActionAttack);
         var move = new TreeAction(ActionMove);
 
-        var isTimeOver = new TreeQuestion(IsTimeOver, jump, idle);
+        var isTimeOver = new TreeQuestion(IsTimeOver, move, idle);
         var isTouchingPlayer = new TreeQuestion(IsTouchingPlayer, dead, isTimeOver);
-        var isTouchingPlayerToKill = new TreeQuestion(IsTouchingPlayer, attack, jump);
-        var isTouchingFloor = new TreeQuestion(IsTouchingFloor, isTouchingPlayer, isTouchingPlayerToKill);
+        //var isTouchingFloor = new TreeQuestion(IsTouchingFloor, isTouchingPlayer, isTouchingPlayerToKill);
         var isLookingAtPlayer = new TreeQuestion(IsLookingAtPlayer, attack, move);
+        var isTouchingPlayerToKill = new TreeQuestion(IsTouchingPlayer, attack, isLookingAtPlayer);
         var hasReachedWaypoint = new TreeQuestion(HasReachedWaypoint, idle, isLookingAtPlayer);
         
-        root = isTouchingFloor;
+        root = hasReachedWaypoint;
     }
 
     bool HasReachedWaypoint()
@@ -105,6 +105,7 @@ public class ClownController : MonoBehaviour
 
     private void ActionDead()
     {
+        print("dead");
         fsm.Transition(ClownStateEnum.Dead);
     }
 

@@ -5,10 +5,8 @@ using UnityEngine;
 public class ClownModel : MonoBehaviour
 {
     public float jumpSpeed;
-    public Vector2 jumpRange;
     public float visionRange;
     public float visionAngle;
-    public Vector3 initialPosition;
     public float maxTime;
     private Rigidbody body;
     private PlayerModel lastPlayerTouch;
@@ -26,27 +24,26 @@ public class ClownModel : MonoBehaviour
     private void Awake()
     {
         body = GetComponent<Rigidbody>();
-        initialPosition = transform.position;
+        
     }
 
-    public Vector3 GetJumpDirection()
-    {
-        var x = Random.Range(-jumpRange.x, jumpRange.x);
-        var z = Random.Range(-jumpRange.y, jumpRange.y);
-        var position = new Vector3(x, 0, z) + initialPosition;
-        return (position - transform.position).normalized;
-    }
+    //public Vector3 GetJumpDirection()
+    //{
+    //    var x = Random.Range(-jumpRange.x, jumpRange.x);
+    //    var z = Random.Range(-jumpRange.y, jumpRange.y);
+    //    var position = new Vector3(x, 0, z) + initialPosition;
+    //    return (position - transform.position).normalized;
+    //}
 
     public void Jump(Vector3 direction)
     {
         body.AddForce((direction + Vector3.up) * jumpSpeed, ForceMode.Impulse);
     }
 
-    public int GetNextWaypointMark()
+    public void GetNextWaypointMark()
     {
         if (waypoints.Count > waypointMark) waypointMark++; 
         else waypointMark = 0;
-        return waypointMark;
     }
 
     public Transform waypointObjective => waypoints[waypointMark];
@@ -116,7 +113,7 @@ public class ClownModel : MonoBehaviour
         return !Physics.Raycast(transform.position, differenceToTarget, out hit, distanceToTarget, layer);
     }
 
-    private void LookingAtPlayer()
+    private bool LookingAtPlayer()
     {
         if (CheckRange(target.transform) && CheckAngle(target.transform) && CheckView(target.transform))
         {
@@ -126,6 +123,12 @@ public class ClownModel : MonoBehaviour
         {
             lookingAtPlayer = false;
         }
+        return lookingAtPlayer;
+    }
+
+    public void hola()
+    {
+        print("MOVETE");
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -148,16 +151,16 @@ public class ClownModel : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        var position = initialPosition;
-        if (position == Vector3.zero)
-        {
-            position = transform.position;
-        }
-        Gizmos.DrawWireCube(position, new Vector3(jumpRange.x, 1, jumpRange.y));
-    }
+    //private void OnDrawGizmosSelected()
+    //{
+    //    Gizmos.color = Color.red;
+    //    var position = initialPosition;
+    //    if (position == Vector3.zero)
+    //    {
+    //        position = transform.position;
+    //    }
+    //    Gizmos.DrawWireCube(position, new Vector3(jumpRange.x, 1, jumpRange.y));
+    //}
 
     public void Dead()
     {
@@ -177,13 +180,9 @@ public class ClownModel : MonoBehaviour
         transform.forward = dir;
     }
 
-    public void ReachedWaypoint()
+    public bool ReachedWaypoint()
     {
-        if (Vector3.Distance(transform.position, waypointObjective.position) < 1f)
-        {
-            reachedWaypoint = true;
-        }
-        else reachedWaypoint = false;
+        return (Vector3.Distance(transform.position, waypointObjective.position) < 3f);
     }
 
     public PlayerModel LastPlayerTouch => lastPlayerTouch;
@@ -192,9 +191,9 @@ public class ClownModel : MonoBehaviour
 
     public bool IsTouchingPlayer => touchPlayer;
 
-    public bool IsOnWaypoint => reachedWaypoint;
+    public bool IsOnWaypoint => ReachedWaypoint();
 
-    public bool IsLookingAtPlayer => lookingAtPlayer;
+    public bool IsLookingAtPlayer => LookingAtPlayer();
 
     private void OnDrawGizmos()
     {

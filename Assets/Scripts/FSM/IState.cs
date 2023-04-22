@@ -13,4 +13,5 @@ public interface IState<T>
     void Execute();
 
     void Sleep();
+
 }
