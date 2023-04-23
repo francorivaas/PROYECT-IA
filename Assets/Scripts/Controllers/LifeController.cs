@@ -5,7 +5,7 @@ using UnityEngine;
 public class LifeController : MonoBehaviour
 {
     [SerializeField] private int maxLife;
-    private int currentLife;
+    [SerializeField] private int currentLife;
     private bool isDead;
 
     private void Start()
