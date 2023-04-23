@@ -153,6 +153,7 @@ public class ClownController : MonoBehaviour
     {
         var pursuit = new Pursuit(target, transform, timeAvoidance);
         _obsAvoidance = new ObstacleAvoidance(transform, radius, mask, maxObstacles, angle);
+        Debug.Log(_obsAvoidance == null);
         _steering = pursuit;
     }
 }

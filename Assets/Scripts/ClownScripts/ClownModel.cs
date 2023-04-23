@@ -24,7 +24,6 @@ public class ClownModel : MonoBehaviour
     private void Awake()
     {
         body = GetComponent<Rigidbody>();
-        
     }
 
     //public Vector3 GetJumpDirection()
@@ -126,6 +125,8 @@ public class ClownModel : MonoBehaviour
         if (CheckRange(target.transform) && CheckAngle(target.transform) && CheckView(target.transform))
         {
             lookingAtPlayer = true;
+            print("veo un player");
+            
         }
         else
         {
@@ -134,7 +135,7 @@ public class ClownModel : MonoBehaviour
         return lookingAtPlayer;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         PlayerModel player = collision.gameObject.GetComponent<PlayerModel>();
         if (player != null)

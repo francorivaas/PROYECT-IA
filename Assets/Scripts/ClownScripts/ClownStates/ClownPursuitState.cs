@@ -12,7 +12,6 @@ public class ClownPursuitState<T> : ClownStateBase<T>
     {
         _avoidance = avoidance;
         _action = action;
-        
     }
 
     public override void Awake()
@@ -26,11 +25,8 @@ public class ClownPursuitState<T> : ClownStateBase<T>
         Vector3 dirAvoidance = _avoidance.GetDir();
         dir = (_action.GetDir() + dirAvoidance * 2).normalized;
 
-        if (!clown.IsTouchingPlayer)
-        {
-            clown.Move(dir);
-            clown.LookDir(dir);            
-        }
+        clown.Move(dir);
+        clown.LookDir(dir);
     }
 
     public override void Sleep()

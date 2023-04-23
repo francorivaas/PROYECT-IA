@@ -22,26 +22,19 @@ public class ClownMoveState<T> : ClownStateBase<T>
     public override void Execute()
     {
         base.Execute();
-        if (!clown.IsLookingAtPlayer)
+        if (clown.IsOnWaypoint)
         {
-            
-            if (clown.IsOnWaypoint)
-            {
-                clown.GetNextWaypointMark();
-
-            }
-            else
-            {
-
-                clown.LookDir(clown.waypointObjective.position);
-                clown.MoveBetweenWaypoints();
-            }
+            clown.GetNextWaypointMark();
+        }
+        else
+        {
+            clown.LookDir(clown.waypointObjective.position);
+            clown.MoveBetweenWaypoints();
         }
     }
 
     public override void Sleep()
     {
         base.Sleep();
-        
     }
 }
