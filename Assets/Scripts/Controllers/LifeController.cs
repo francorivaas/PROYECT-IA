@@ -33,5 +33,6 @@ public class LifeController : MonoBehaviour
     private void Die()
     {
         isDead = true;
+        Destroy(gameObject);
     }
 }

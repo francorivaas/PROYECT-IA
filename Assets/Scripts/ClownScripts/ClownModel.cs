@@ -19,6 +19,7 @@ public class ClownModel : MonoBehaviour
     public List<Transform> waypoints;
     public float speed;
     public int waypointMark;
+    public int damage = 10;
 
     private void Awake()
     {
@@ -46,7 +47,6 @@ public class ClownModel : MonoBehaviour
         {
             waypointMark = 0;
         }
-
     }
 
     public Transform waypointObjective => waypoints[waypointMark];
@@ -85,8 +85,13 @@ public class ClownModel : MonoBehaviour
     {
         if (player != null)
         {
-            print("cual");
-            Destroy(player.gameObject);
+            print("1");
+
+            if (player.GetComponent<LifeController>() != null)
+            {
+                print("2");
+                player.GetComponent<LifeController>().TakeDamage(10);
+            }
         }
     }
 
@@ -129,11 +134,6 @@ public class ClownModel : MonoBehaviour
         return lookingAtPlayer;
     }
 
-    public void hola()
-    {
-        print("MOVETE");
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
         PlayerModel player = collision.gameObject.GetComponent<PlayerModel>();
@@ -141,6 +141,7 @@ public class ClownModel : MonoBehaviour
         {
             touchPlayer = true;
             lastPlayerTouch = player;
+            Debug.Log(player);
         }
         else touchFloor = true;
     }

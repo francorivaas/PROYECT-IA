@@ -18,7 +18,6 @@ public class ClownPursuitState<T> : ClownStateBase<T>
     public override void Awake()
     {
         base.Awake();
-        clown.hola();
     }
 
     public override void Execute()
@@ -26,17 +25,16 @@ public class ClownPursuitState<T> : ClownStateBase<T>
         base.Execute();
         Vector3 dirAvoidance = _avoidance.GetDir();
         dir = (_action.GetDir() + dirAvoidance * 2).normalized;
+
         if (!clown.IsTouchingPlayer)
         {
             clown.Move(dir);
-            clown.LookDir(dir);
+            clown.LookDir(dir);            
         }
-
     }
 
     public override void Sleep()
     {
-        base.Sleep();
-        
+        base.Sleep();        
     }
 }

@@ -22,7 +22,6 @@ public class ClownMoveState<T> : ClownStateBase<T>
     public override void Execute()
     {
         base.Execute();
-        Debug.Log(clown.IsLookingAtPlayer);
         if (!clown.IsLookingAtPlayer)
         {
             
