@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ClownModel : MonoBehaviour
 {
-    public float jumpSpeed;
+    //public float jumpSpeed;
     public float visionRange;
     public float visionAngle;
     public float maxTime;
@@ -16,10 +16,9 @@ public class ClownModel : MonoBehaviour
     private bool touchPlayer;
     private bool touchFloor;
     private bool lookingAtPlayer;
-    private bool reachedWaypoint = false;
     public List<Transform> waypoints;
     public float speed;
-    public int waypointMark = 0;
+    public int waypointMark;
 
     private void Awake()
     {
@@ -35,15 +34,19 @@ public class ClownModel : MonoBehaviour
     //    return (position - transform.position).normalized;
     //}
 
-    public void Jump(Vector3 direction)
-    {
-        body.AddForce((direction + Vector3.up) * jumpSpeed, ForceMode.Impulse);
-    }
+    //public void Jump(Vector3 direction)
+    //{
+    //    body.AddForce((direction + Vector3.up) * jumpSpeed, ForceMode.Impulse);
+    //}
 
     public void GetNextWaypointMark()
     {
-        if (waypoints.Count > waypointMark) waypointMark++; 
-        else waypointMark = 0;
+        waypointMark++;
+        if (waypoints.Count <= waypointMark)
+        {
+            waypointMark = 0;
+        }
+
     }
 
     public Transform waypointObjective => waypoints[waypointMark];
@@ -178,6 +181,11 @@ public class ClownModel : MonoBehaviour
     {
         if (dir == Vector3.zero) return;
         transform.forward = dir;
+    }
+
+    public void MoveBetweenWaypoints()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, waypoints[waypointMark].transform.position, Time.deltaTime * speed);
     }
 
     public bool ReachedWaypoint()

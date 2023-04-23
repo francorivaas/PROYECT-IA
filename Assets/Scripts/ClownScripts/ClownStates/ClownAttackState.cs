@@ -9,5 +9,6 @@ public class ClownAttackState<T> : ClownStateBase<T>
         base.Awake();
         var player = clown.LastPlayerTouch;
         clown.Attack(player);
+
     }
 }

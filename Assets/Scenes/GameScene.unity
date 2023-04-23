@@ -826,6 +826,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1551632660 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100052, guid: c6acf3f29c109e4439950c8f6a85cb2b, type: 3}
+  m_PrefabInstance: {fileID: 2133351554}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1585871163
 GameObject:
   m_ObjectHideFlags: 0
@@ -952,10 +957,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d5fb8ec0adca3b429044ab794b5ff0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpSpeed: 2
   visionRange: 6
   visionAngle: 120
-  maxTime: 2
+  maxTime: 3
   target: {fileID: 1969683287}
   layer:
     serializedVersion: 2
@@ -965,8 +969,8 @@ MonoBehaviour:
   - {fileID: 827922984}
   - {fileID: 1115827007}
   - {fileID: 2146677775}
-  speed: 0.5
-  waypointMark: 1
+  speed: 2
+  waypointMark: 0
 --- !u!114 &1602087542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -979,6 +983,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 980debf7d8f617448b71c6f24bd90cee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 1969683287}
+  timeAvoidance: 3
+  angle: 120
+  radius: 6
+  maxObstacles: 4
+  mask:
+    serializedVersion: 2
+    m_Bits: 256
+  avoMultiplier: 3
 --- !u!65 &1602087543
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1006,7 +1019,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!4 &1602087547
 Transform:
@@ -1016,7 +1029,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1602087540}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.44, y: 0, z: -2.74}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1131,8 +1144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32de265b8ff60394cbeaff2b7ef36ff2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 0}
-  rotationSpeed: 0
+  model: {fileID: 1551632660}
+  rotationSpeed: 2
   speed: 4
 --- !u!4 &1969683288
 Transform:
@@ -1142,7 +1155,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1969683286}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.5, y: 0, z: -19.7}
+  m_LocalPosition: {x: 11.09, y: 0, z: -30.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

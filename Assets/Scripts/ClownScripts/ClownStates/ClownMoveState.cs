@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class ClownMoveState<T> : ClownStateBase<T>
 {
+    T inputIdle;
+    T inputAttack;
+
+    public ClownMoveState(T reachedWaypointInput, T seenEnemyInput)
+    {
+        inputIdle = reachedWaypointInput;
+        inputAttack = seenEnemyInput;
+    }
+
     public override void Awake()
     {
         base.Awake();
@@ -13,17 +22,27 @@ public class ClownMoveState<T> : ClownStateBase<T>
     public override void Execute()
     {
         base.Execute();
-        clown.LookDir(clown.waypointObjective.position);
-        clown.Move(clown.waypointObjective.position);
-        if (clown.IsOnWaypoint)
+        Debug.Log(clown.IsLookingAtPlayer);
+        if (!clown.IsLookingAtPlayer)
         {
-            clown.hola();
-        }
+            
+            if (clown.IsOnWaypoint)
+            {
+                clown.GetNextWaypointMark();
 
+            }
+            else
+            {
+
+                clown.LookDir(clown.waypointObjective.position);
+                clown.MoveBetweenWaypoints();
+            }
+        }
     }
 
     public override void Sleep()
     {
         base.Sleep();
+        
     }
 }

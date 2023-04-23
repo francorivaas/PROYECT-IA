@@ -4,11 +4,21 @@ using UnityEngine;
 
 public class ClownIdleState<T> : ClownStateBase<T>
 {
+    //T inputMove;
+    T inputAttack;
+
+    public ClownIdleState(T seenEnemyInput)
+    {
+    //    inputMove = timePassedInput;
+        inputAttack = seenEnemyInput;
+    }
+
     public override void Awake()
     {
         base.Awake();
         var timer = clown.GetRandomTime();
         clown.CurrentTimer = timer;
+
     }
 
     public override void Execute()
@@ -16,19 +26,28 @@ public class ClownIdleState<T> : ClownStateBase<T>
         base.Execute();
         clown.RunTimer();
 
-        if (clown.CurrentTimer > 0)
+        if (clown.IsLookingAtPlayer)
         {
-            clown.RunTimer();
+            fsm.Transition(inputAttack);
         }
         else
         {
-            
+            if (clown.CurrentTimer > 0)
+            {
+                clown.RunTimer();
+            }
+            else
+            {
+
+            }
         }
+        
     }
 
     public override void Sleep()
     {
         base.Sleep();
         clown.CurrentTimer = 0;
+        
     }
 }
