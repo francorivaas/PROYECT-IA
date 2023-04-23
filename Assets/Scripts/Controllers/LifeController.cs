@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class LifeController : MonoBehaviour
 {
-    public int maxLife;
-    public int currentLife;
-    public bool isDead;
+    [SerializeField] private int maxLife;
+    private int currentLife;
+    private bool isDead;
 
     private void Start()
     {
@@ -24,7 +24,7 @@ public class LifeController : MonoBehaviour
 
     private void CheckLife()
     {
-        if (currentLife <= 0)
+        if (currentLife <= 0 && !isDead)
         {
             Die();
         } 
