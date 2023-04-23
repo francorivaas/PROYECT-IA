@@ -10,6 +10,7 @@ public class PlayerModel : MonoBehaviour
     public float rotationSpeed;
     public float speed;
     public float range;
+    public int damage;
 
     private void Awake()
     {
@@ -36,6 +37,11 @@ public class PlayerModel : MonoBehaviour
         if (Physics.Raycast(firepoint.transform.position, firepoint.transform.forward, out hit, range))
         {
             print(hit.transform.name);
+            LifeController enemy = hit.transform.GetComponent<LifeController>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damage);
+            }
         }
     }
 
