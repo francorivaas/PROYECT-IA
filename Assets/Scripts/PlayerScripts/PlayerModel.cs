@@ -6,8 +6,11 @@ public class PlayerModel : MonoBehaviour
 {
     private Rigidbody rb;
     public GameObject model;
+    public Transform firepoint;
     public float rotationSpeed;
     public float speed;
+    public float range;
+    public int damage;
 
     private void Awake()
     {
@@ -19,6 +22,27 @@ public class PlayerModel : MonoBehaviour
         Vector3 directionSpeed = direction * speed;
         directionSpeed.y = rb.velocity.y;
         rb.velocity = direction * speed;
+    }
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Shoot();
+        }
+    }
+
+    public void Shoot()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(firepoint.transform.position, firepoint.transform.forward, out hit, range))
+        {
+            print(hit.transform.name);
+            LifeController enemy = hit.transform.GetComponent<LifeController>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damage);
+            }
+        }
     }
 
     public void LookDirection(Vector3 dir)
