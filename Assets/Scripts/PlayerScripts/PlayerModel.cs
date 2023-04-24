@@ -7,6 +7,7 @@ public class PlayerModel : MonoBehaviour
     private Rigidbody rb;
     public GameObject model;
     public Transform firepoint;
+    private Animator animator;
     public float rotationSpeed;
     public float speed;
     public float range;
@@ -16,6 +17,7 @@ public class PlayerModel : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     public void Move(Vector3 direction) //el modelo solo recibe la dirección
@@ -40,6 +42,7 @@ public class PlayerModel : MonoBehaviour
     public void Shoot()
     {
         muzzleFlash.SetActive(true);
+        animator.SetTrigger("Shoot");
 
         RaycastHit hit;
         if (Physics.Raycast(firepoint.transform.position, firepoint.transform.forward, out hit, range))
