@@ -11,6 +11,7 @@ public class PlayerModel : MonoBehaviour
     public float speed;
     public float range;
     public int damage;
+    public GameObject muzzleFlash;
 
     private void Awake()
     {
@@ -29,10 +30,17 @@ public class PlayerModel : MonoBehaviour
         {
             Shoot();
         }
+        if (Input.GetMouseButtonUp(0))
+        {
+            muzzleFlash.SetActive(false);
+        }
+        
     }
 
     public void Shoot()
     {
+        muzzleFlash.SetActive(true);
+
         RaycastHit hit;
         if (Physics.Raycast(firepoint.transform.position, firepoint.transform.forward, out hit, range))
         {
@@ -43,6 +51,7 @@ public class PlayerModel : MonoBehaviour
                 enemy.TakeDamage(damage);
             }
         }
+        
     }
 
     public void LookDirection(Vector3 dir)
