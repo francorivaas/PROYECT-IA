@@ -8,9 +8,12 @@ public class LifeController : MonoBehaviour
     [SerializeField] private int currentLife;
     private bool isDead;
 
+    public LifebarController lifebar;
+
     private void Start()
     {
-        currentLife = maxLife;    
+        currentLife = maxLife;
+        lifebar.SetMaxHealth(maxLife);
     }
 
     public void TakeDamage(int damage)
@@ -18,6 +21,7 @@ public class LifeController : MonoBehaviour
         if (currentLife > 0)
         {
             currentLife -= damage;
+            lifebar.SetHealth(currentLife);
             CheckLife();
         }
     }

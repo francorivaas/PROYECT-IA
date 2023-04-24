@@ -626,6 +626,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLife: 100
   currentLife: 0
+  lifebar: {fileID: 0}
 --- !u!1 &8624864222113389440
 GameObject:
   m_ObjectHideFlags: 0
