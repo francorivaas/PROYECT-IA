@@ -20,9 +20,9 @@ public class ClownController : MonoBehaviour
     private void Awake()
     {
         clown = GetComponent<ClownModel>();
+        InitializeSteering();
         InitializedFSM();
         InitializedTree();
-        InitializeSteering();
     }
 
     public void InitializedFSM()

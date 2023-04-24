@@ -31,6 +31,7 @@ public class ClownMoveState<T> : ClownStateBase<T>
             clown.LookDir(clown.waypointObjective.position);
             clown.MoveBetweenWaypoints();
         }
+        Debug.Log("Running move");
     }
 
     public override void Sleep()

@@ -26,11 +26,6 @@ public class ClownModel : MonoBehaviour
         body = GetComponent<Rigidbody>();
     }
 
-    private void Update()
-    {
-        print(IsTouchingPlayer);
-    }
-
     //public Vector3 GetJumpDirection()
     //{
     //    var x = Random.Range(-jumpRange.x, jumpRange.x);

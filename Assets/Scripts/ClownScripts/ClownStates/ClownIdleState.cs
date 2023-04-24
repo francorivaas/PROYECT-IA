@@ -26,11 +26,7 @@ public class ClownIdleState<T> : ClownStateBase<T>
         base.Execute();
         clown.RunTimer();
 
-        if (clown.IsLookingAtPlayer)
-        {
-            fsm.Transition(inputAttack);
-        }
-        else
+        if (!clown.IsLookingAtPlayer)
         {
             if (clown.CurrentTimer > 0)
             {
@@ -41,7 +37,7 @@ public class ClownIdleState<T> : ClownStateBase<T>
 
             }
         }
-        
+        Debug.Log("Running idle");
     }
 
     public override void Sleep()

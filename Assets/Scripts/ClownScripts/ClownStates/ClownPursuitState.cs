@@ -29,6 +29,7 @@ public class ClownPursuitState<T> : ClownStateBase<T>
 
         clown.Move(dir);
         clown.LookDir(dir);
+        Debug.Log("Pursuit");
     }
 
     public override void Sleep()
