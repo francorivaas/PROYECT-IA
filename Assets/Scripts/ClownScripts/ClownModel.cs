@@ -10,6 +10,7 @@ public class ClownModel : MonoBehaviour
     public float maxTime;
     private Rigidbody body;
     private PlayerModel lastPlayerTouch;
+    private Animator animator;
     public PlayerModel target;
     public LayerMask layer;
     private float timer;
@@ -24,25 +25,12 @@ public class ClownModel : MonoBehaviour
     private void Awake()
     {
         body = GetComponent<Rigidbody>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
     {
-        print(touchPlayer);
     }
-
-    //public Vector3 GetJumpDirection()
-    //{
-    //    var x = Random.Range(-jumpRange.x, jumpRange.x);
-    //    var z = Random.Range(-jumpRange.y, jumpRange.y);
-    //    var position = new Vector3(x, 0, z) + initialPosition;
-    //    return (position - transform.position).normalized;
-    //}
-
-    //public void Jump(Vector3 direction)
-    //{
-    //    body.AddForce((direction + Vector3.up) * jumpSpeed, ForceMode.Impulse);
-    //}
 
     public void GetNextWaypointMark()
     {
@@ -131,13 +119,11 @@ public class ClownModel : MonoBehaviour
         if (CheckRange(target.transform) && CheckAngle(target.transform) && CheckView(target.transform))
         {
             lookingAtPlayer = true;
-            print("veo un player");
             
         }
         else
         {
             lookingAtPlayer = false;
-            print("no veo un player");
         }
         return lookingAtPlayer;
     }
@@ -174,6 +160,8 @@ public class ClownModel : MonoBehaviour
         Vector3 dirSpeed = dir * speed;
         dirSpeed.y = body.velocity.y;
         body.velocity = dirSpeed;
+        
+
     }
 
     public void LookDir(Vector3 dir)
