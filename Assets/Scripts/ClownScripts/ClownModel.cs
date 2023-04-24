@@ -28,10 +28,6 @@ public class ClownModel : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
     }
 
-    private void Update()
-    {
-    }
-
     public void GetNextWaypointMark()
     {
         waypointMark++;
@@ -119,8 +115,8 @@ public class ClownModel : MonoBehaviour
         if (CheckRange(target.transform) && CheckAngle(target.transform) && CheckView(target.transform))
         {
             lookingAtPlayer = true;
-            
         }
+
         else
         {
             lookingAtPlayer = false;
@@ -135,7 +131,7 @@ public class ClownModel : MonoBehaviour
         {
             touchPlayer = true;
             lastPlayerTouch = player;
-            print("tocando un player");
+            animator.SetTrigger("Attack");
         }
     }
 
