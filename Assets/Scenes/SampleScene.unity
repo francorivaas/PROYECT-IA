@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2704,10 +2704,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Clown
       objectReference: {fileID: 0}
-    - target: {fileID: 3680132104234244585, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3680132104234244586, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -2752,30 +2748,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3680132104234244588, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
-      propertyPath: m_Size.y
-      value: 1.9123855
-      objectReference: {fileID: 0}
-    - target: {fileID: 3680132104234244588, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
-      propertyPath: m_Center.y
-      value: 0.9681828
-      objectReference: {fileID: 0}
-    - target: {fileID: 3680132104234244588, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3680132104234244589, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
-      propertyPath: m_Constraints
-      value: 116
-      objectReference: {fileID: 0}
-    - target: {fileID: 3680132104234244589, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3680132104234244590, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
-      propertyPath: radius
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 3680132104234244590, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
       propertyPath: target
       value: 
@@ -2784,10 +2756,6 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 462940950}
-    - target: {fileID: 3680132104234244591, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
-      propertyPath: visionRange
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 3680132104234244591, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
       propertyPath: waypoints.Array.data[0]
       value: 

@@ -87,6 +87,7 @@ public class ClownModel : MonoBehaviour
 
     public void Attack(PlayerModel player)
     {
+        lastPlayerTouch = player;
         if (player != null)
         {
             //print("1");
@@ -141,41 +142,27 @@ public class ClownModel : MonoBehaviour
         return lookingAtPlayer;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        {
-            PlayerModel player = collision.gameObject.GetComponent<PlayerModel>();
-            if (player != null)
-            {
-                touchPlayer = true;
-                lastPlayerTouch = player;
-
-            }
-
-        }
-    }
-
-
-    private void OnCollisionExit(Collision collision)
-    {
-        PlayerModel player = collision.gameObject.GetComponent<PlayerModel>();
+        PlayerModel player = other.gameObject.GetComponent<PlayerModel>();
         if (player != null)
         {
-            touchPlayer = false;
-            lastPlayerTouch = null;
+            touchPlayer = true;
+            lastPlayerTouch = player;
+            print("tocando un player");
         }
     }
 
-    //private void OnDrawGizmosSelected()
-    //{
-    //    Gizmos.color = Color.red;
-    //    var position = initialPosition;
-    //    if (position == Vector3.zero)
-    //    {
-    //        position = transform.position;
-    //    }
-    //    Gizmos.DrawWireCube(position, new Vector3(jumpRange.x, 1, jumpRange.y));
-    //}
+    private void OnTriggerExit(Collider other)
+    {
+        PlayerModel player = other.gameObject.GetComponent<PlayerModel>();
+        if (player != null)
+        {
+            touchPlayer = true;
+            lastPlayerTouch = player;
+            print("dejando de tocar un player");
+        }
+    }
 
     public void Dead()
     {
