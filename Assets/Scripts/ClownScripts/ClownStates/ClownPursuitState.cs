@@ -12,15 +12,17 @@ public class ClownPursuitState<T> : ClownStateBase<T>
     {
         _avoidance = avoidance;
         _action = action;
+        if (_avoidance == null) Debug.Log("FUCK");
     }
 
     public override void Awake()
     {
-        base.Awake();
+        base.Awake();   
     }
 
     public override void Execute()
     {
+
         base.Execute();
         Vector3 dirAvoidance = _avoidance.GetDir();
         dir = (_action.GetDir() + dirAvoidance * 2).normalized;

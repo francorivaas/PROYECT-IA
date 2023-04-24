@@ -52,16 +52,21 @@ public class ClownController : MonoBehaviour
         //idle.AddTransition(ClownStateEnum.Jump, jump);
         idle.AddTransition(ClownStateEnum.Move, move);
         idle.AddTransition(ClownStateEnum.Attack, attack);
+        idle.AddTransition(ClownStateEnum.Pursuit, pursuit);
 
         //jump.AddTransition(ClownStateEnum.Idle, idle);
         //jump.AddTransition(ClownStateEnum.Attack, attack);
 
         move.AddTransition(ClownStateEnum.Idle, idle);
         move.AddTransition(ClownStateEnum.Attack, attack);
+        move.AddTransition(ClownStateEnum.Pursuit, pursuit);
 
-        attack.AddTransition(ClownStateEnum.Move, pursuit);
+        attack.AddTransition(ClownStateEnum.Pursuit, pursuit);
+        attack.AddTransition(ClownStateEnum.Move, move);
+        attack.AddTransition(ClownStateEnum.Idle, idle);
 
         pursuit.AddTransition(ClownStateEnum.Idle, idle);
+        pursuit.AddTransition(ClownStateEnum.Move, move);
 
         fsm.SetInit(idle);
     }
@@ -94,11 +99,13 @@ public class ClownController : MonoBehaviour
 
     bool IsLookingAtPlayer()
     {
+        clown.LookingAtPlayer();
         return clown.IsLookingAtPlayer;
     }
         
     bool IsTouchingPlayer()
     {
+        
         return clown.IsTouchingPlayer;
     }
 
@@ -151,9 +158,9 @@ public class ClownController : MonoBehaviour
 
     private void InitializeSteering()
     {
+        
         var pursuit = new Pursuit(target, transform, timeAvoidance);
         _obsAvoidance = new ObstacleAvoidance(transform, radius, mask, maxObstacles, angle);
-        Debug.Log(_obsAvoidance == null);
         _steering = pursuit;
     }
 }

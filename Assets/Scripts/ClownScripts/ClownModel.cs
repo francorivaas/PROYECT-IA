@@ -26,6 +26,11 @@ public class ClownModel : MonoBehaviour
         body = GetComponent<Rigidbody>();
     }
 
+    private void Update()
+    {
+        print(IsTouchingPlayer);
+    }
+
     //public Vector3 GetJumpDirection()
     //{
     //    var x = Random.Range(-jumpRange.x, jumpRange.x);
@@ -120,7 +125,7 @@ public class ClownModel : MonoBehaviour
         return !Physics.Raycast(transform.position, differenceToTarget, out hit, distanceToTarget, layer);
     }
 
-    private bool LookingAtPlayer()
+    public bool LookingAtPlayer()
     {
         if (CheckRange(target.transform) && CheckAngle(target.transform) && CheckView(target.transform))
         {
@@ -131,6 +136,7 @@ public class ClownModel : MonoBehaviour
         else
         {
             lookingAtPlayer = false;
+            print("no veo un player");
         }
         return lookingAtPlayer;
     }
@@ -144,16 +150,17 @@ public class ClownModel : MonoBehaviour
             lastPlayerTouch = player;
             Debug.Log(player);
         }
-        else touchFloor = true;
+        else touchPlayer = false;
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        PlayerModel player = collision.gameObject.GetComponent<PlayerModel>();
-        if (player == null)
-        {
-            touchFloor = false;
-        }
+        touchPlayer = false;
+        //PlayerModel player = collision.gameObject.GetComponent<PlayerModel>();
+        //if (player == null)
+        //{
+            
+        //}
     }
 
     //private void OnDrawGizmosSelected()
@@ -203,7 +210,7 @@ public class ClownModel : MonoBehaviour
 
     public bool IsOnWaypoint => ReachedWaypoint();
 
-    public bool IsLookingAtPlayer => LookingAtPlayer();
+    public bool IsLookingAtPlayer => lookingAtPlayer;
 
     private void OnDrawGizmos()
     {
