@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class ClownIdleState<T> : ClownStateBase<T>
 {
-    //T inputMove;
     T inputAttack;
 
     public ClownIdleState(T seenEnemyInput)
     {
-    //    inputMove = timePassedInput;
         inputAttack = seenEnemyInput;
     }
 
@@ -18,7 +16,6 @@ public class ClownIdleState<T> : ClownStateBase<T>
         base.Awake();
         var timer = clown.GetRandomTime();
         clown.CurrentTimer = timer;
-
     }
 
     public override void Execute()
@@ -32,18 +29,12 @@ public class ClownIdleState<T> : ClownStateBase<T>
             {
                 clown.RunTimer();
             }
-            else
-            {
-
-            }
         }
-        Debug.Log("Running idle");
     }
 
     public override void Sleep()
     {
         base.Sleep();
         clown.CurrentTimer = 0;
-        
     }
 }

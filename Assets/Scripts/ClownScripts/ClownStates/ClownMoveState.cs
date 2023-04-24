@@ -16,7 +16,6 @@ public class ClownMoveState<T> : ClownStateBase<T>
     public override void Awake()
     {
         base.Awake();
-
     }
 
     public override void Execute()
@@ -31,7 +30,6 @@ public class ClownMoveState<T> : ClownStateBase<T>
             clown.LookDir(clown.NextWaypointDir);
             clown.Move(clown.NextWaypointDir);
         }
-        Debug.Log("Running move");
     }
 
     public override void Sleep()
