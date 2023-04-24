@@ -74,11 +74,8 @@ public class ClownModel : MonoBehaviour
         lastPlayerTouch = player;
         if (player != null)
         {
-            //print("1");
-
             if (player.GetComponent<LifeController>() != null)
             {
-                //print("2");
                 player.GetComponent<LifeController>().TakeDamage(10);
             }
         }
@@ -156,8 +153,6 @@ public class ClownModel : MonoBehaviour
         Vector3 dirSpeed = dir * speed;
         dirSpeed.y = body.velocity.y;
         body.velocity = dirSpeed;
-        
-
     }
 
     public void LookDir(Vector3 dir)
