@@ -26,6 +26,11 @@ public class ClownModel : MonoBehaviour
         body = GetComponent<Rigidbody>();
     }
 
+    private void Update()
+    {
+        print(touchPlayer);
+    }
+
     //public Vector3 GetJumpDirection()
     //{
     //    var x = Random.Range(-jumpRange.x, jumpRange.x);
@@ -84,11 +89,11 @@ public class ClownModel : MonoBehaviour
     {
         if (player != null)
         {
-            print("1");
+            //print("1");
 
             if (player.GetComponent<LifeController>() != null)
             {
-                print("2");
+                //print("2");
                 player.GetComponent<LifeController>().TakeDamage(10);
             }
         }
@@ -117,7 +122,7 @@ public class ClownModel : MonoBehaviour
         Vector3 differenceToTarget = difference.normalized;
         float distanceToTarget = difference.magnitude;
 
-        return !Physics.Raycast(transform.position, differenceToTarget, out hit, distanceToTarget, layer);
+        return Physics.Raycast(transform.position, differenceToTarget, out hit, distanceToTarget);
     }
 
     public bool LookingAtPlayer()
@@ -136,26 +141,29 @@ public class ClownModel : MonoBehaviour
         return lookingAtPlayer;
     }
 
-    private void OnCollisionStay(Collision collision)
+    private void OnCollisionEnter(Collision collision)
+    {
+        {
+            PlayerModel player = collision.gameObject.GetComponent<PlayerModel>();
+            if (player != null)
+            {
+                touchPlayer = true;
+                lastPlayerTouch = player;
+
+            }
+
+        }
+    }
+
+
+    private void OnCollisionExit(Collision collision)
     {
         PlayerModel player = collision.gameObject.GetComponent<PlayerModel>();
         if (player != null)
         {
-            touchPlayer = true;
-            lastPlayerTouch = player;
-            Debug.Log(player);
+            touchPlayer = false;
+            lastPlayerTouch = null;
         }
-        else touchPlayer = false;
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        touchPlayer = false;
-        //PlayerModel player = collision.gameObject.GetComponent<PlayerModel>();
-        //if (player == null)
-        //{
-            
-        //}
     }
 
     //private void OnDrawGizmosSelected()
@@ -187,6 +195,11 @@ public class ClownModel : MonoBehaviour
         transform.forward = dir;
     }
 
+    public Vector3 GetDirectionToWaypoint()
+    {
+        return (waypoints[waypointMark].transform.position - transform.position).normalized;
+    }
+
     public void MoveBetweenWaypoints()
     {
         transform.position = Vector3.MoveTowards(transform.position, waypoints[waypointMark].transform.position, Time.deltaTime * speed);
@@ -206,6 +219,8 @@ public class ClownModel : MonoBehaviour
     public bool IsOnWaypoint => ReachedWaypoint();
 
     public bool IsLookingAtPlayer => lookingAtPlayer;
+
+    public Vector3 NextWaypointDir => GetDirectionToWaypoint();
 
     private void OnDrawGizmos()
     {

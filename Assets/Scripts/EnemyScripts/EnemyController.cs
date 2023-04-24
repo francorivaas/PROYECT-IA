@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour
       
     EnemyModel model;
     public PlayerModel target;
+    public GameObject targetmodel;
     public float time;
     ISteering _steering;
     ISteering _obsAvoidance;
@@ -30,7 +31,7 @@ public class EnemyController : MonoBehaviour
         model.Move(dir);
         model.LookDir(dir);
 
-        if (model.CheckRange(target.transform) && model.CheckAngle(target.transform) && model.CheckView(target.transform))
+        if (model.CheckRange(targetmodel.transform) && model.CheckAngle(targetmodel.transform) && model.CheckView(target.transform))
         {
             model.SetLights(true);
         }

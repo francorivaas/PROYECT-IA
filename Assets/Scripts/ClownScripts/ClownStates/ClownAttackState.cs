@@ -12,6 +12,7 @@ public class ClownAttackState<T> : ClownStateBase<T>
         if (player != null)
         {
             clown.Attack(player);
+            Debug.Log("On Attack");
         }
     }
 }

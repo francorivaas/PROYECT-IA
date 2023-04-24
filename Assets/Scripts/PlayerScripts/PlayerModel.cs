@@ -52,7 +52,7 @@ public class PlayerModel : MonoBehaviour
         model.transform.forward = Vector3.RotateTowards(model.transform.forward, dir, Time.deltaTime * rotationSpeed, 0f);
     }
 
-    public Vector3 GetForward => transform.forward;
+    public Vector3 GetForward => model.transform.forward;
     public float GetSpeed => rb.velocity.magnitude;
 }
 

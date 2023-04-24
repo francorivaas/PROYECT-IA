@@ -28,8 +28,8 @@ public class ClownMoveState<T> : ClownStateBase<T>
         }
         else
         {
-            clown.LookDir(clown.waypointObjective.position);
-            clown.MoveBetweenWaypoints();
+            clown.LookDir(clown.NextWaypointDir);
+            clown.Move(clown.NextWaypointDir);
         }
         Debug.Log("Running move");
     }
