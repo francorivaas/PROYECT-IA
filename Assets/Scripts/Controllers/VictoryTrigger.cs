@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class VictoryTrigger : MonoBehaviour
 {
-    public GameManager gManager;
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<PlayerModel>() != null)
-            gManager.LoadGameScene();
+        if (other.gameObject.GetComponent<PlayerModel>() != null
+            && GameManager.hasKey)
+        {
+            GameManager.instance.LoadGameScene();
+        }
+        else if (other.gameObject.GetComponent<PlayerModel>() != null 
+            && !GameManager.hasKey)
+        {
+            print("no key");
+        }
     }
 }
