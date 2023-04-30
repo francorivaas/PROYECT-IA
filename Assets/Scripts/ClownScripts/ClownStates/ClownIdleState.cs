@@ -16,6 +16,7 @@ public class ClownIdleState<T> : ClownStateBase<T>
         base.Awake();
         var timer = clown.GetRandomTime();
         clown.CurrentTimer = timer;
+        clown.Stop();
     }
 
     public override void Execute()

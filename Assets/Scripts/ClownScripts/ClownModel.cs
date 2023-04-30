@@ -21,6 +21,7 @@ public class ClownModel : MonoBehaviour
     public float speed;
     public int waypointMark;
     public int damage = 10;
+    private bool reverseWaypointTraversal = false;
 
     private void Awake()
     {
@@ -30,10 +31,27 @@ public class ClownModel : MonoBehaviour
 
     public void GetNextWaypointMark()
     {
-        waypointMark++;
-        if (waypoints.Count <= waypointMark)
+        if (!reverseWaypointTraversal)
         {
-            waypointMark = 0;
+            if(waypoints.Count -1 > waypointMark)
+            {
+                waypointMark++;
+            }
+            else
+            {
+                reverseWaypointTraversal = true;
+            }
+        }
+        else
+        {
+            if(waypointMark > 0)
+            {
+                waypointMark--;
+            }
+            else
+            {
+                reverseWaypointTraversal = false;
+            }
         }
     }
 
@@ -153,6 +171,11 @@ public class ClownModel : MonoBehaviour
         Vector3 dirSpeed = dir * speed;
         dirSpeed.y = body.velocity.y;
         body.velocity = dirSpeed;
+    }
+
+    public void Stop()
+    {
+        body.velocity = Vector3.zero;
     }
 
     public void LookDir(Vector3 dir)
