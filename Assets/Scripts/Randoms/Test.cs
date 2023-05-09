@@ -5,6 +5,7 @@ using UnityEngine;
 public class Test : MonoBehaviour
 {
     public Dictionary<string, float> dic = new Dictionary<string, float>();
+ 
     private void Start()
     {
         dic["Crash"] = 100; 

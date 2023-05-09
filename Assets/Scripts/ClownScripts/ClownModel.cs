@@ -157,7 +157,6 @@ public class ClownModel : MonoBehaviour
         {
             touchPlayer = true;
             lastPlayerTouch = player;
-            print("dejando de tocar un player");
         }
     }
 

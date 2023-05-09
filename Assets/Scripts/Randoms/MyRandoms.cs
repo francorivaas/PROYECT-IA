@@ -33,7 +33,5 @@ public class MyRandoms : MonoBehaviour
         
         }
         return default(T);
-
-        
     }
 }
