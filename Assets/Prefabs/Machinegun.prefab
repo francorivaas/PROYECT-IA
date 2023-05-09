@@ -44,3 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 394c286e46032a84da4cd40ee6a9bc0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxAmmo: 100
+  currentAmmo: 0
+  damage: 2
+  range: 10
+  player: {fileID: 8624864221585287126, guid: e7720089eb9e8c94d970129a232b2a24, type: 3}

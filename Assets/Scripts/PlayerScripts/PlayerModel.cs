@@ -13,11 +13,23 @@ public class PlayerModel : MonoBehaviour
     public float range;
     public int damage;
     public GameObject muzzleFlash;
+    [SerializeField]
+    private Weapon currentWeapon;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
+    }
+
+    private void Start()
+    {
+        SetWeapon(currentWeapon);  
+    }
+
+    public void SetWeapon(Weapon currentWeapon)
+    {
+        this.currentWeapon = currentWeapon;
     }
 
     public void Move(Vector3 direction) //el modelo solo recibe la dirección
@@ -30,7 +42,7 @@ public class PlayerModel : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Shoot();
+            currentWeapon.Shoot();
         }
         if (Input.GetMouseButtonUp(0))
         {
@@ -44,17 +56,16 @@ public class PlayerModel : MonoBehaviour
         muzzleFlash.SetActive(true);
         animator.SetTrigger("Shoot");
 
-        RaycastHit hit;
-        if (Physics.Raycast(firepoint.transform.position, firepoint.transform.forward, out hit, range))
-        {
-            print(hit.transform.name);
-            LifeController enemy = hit.transform.GetComponent<LifeController>();
-            if (enemy != null)
-            {
-                enemy.TakeDamage(damage);
-            }
-        }
-        
+        //RaycastHit hit;
+        //if (Physics.Raycast(firepoint.transform.position, firepoint.transform.forward, out hit, range))
+        //{
+        //    print(hit.transform.name);
+        //    LifeController enemy = hit.transform.GetComponent<LifeController>();
+        //    if (enemy != null)
+        //    {
+        //        enemy.TakeDamage(damage);
+        //    }
+        //}
     }
 
     public void LookDirection(Vector3 dir)

@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class Gun : Weapon
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float range;
+    public PlayerModel player;
 
-    // Update is called once per frame
-    void Update()
+    public override void Shoot()
     {
-        
+        base.Shoot();
+
+        RaycastHit hit;
+        if (Physics.Raycast(player.transform.position, player.transform.forward, out hit, range))
+        {
+            print(hit.transform.name);
+            LifeController enemy = hit.transform.GetComponent<LifeController>();
+            if (enemy != null)
+            {
+                print("enemy found!");
+                enemy.TakeDamage(damage);
+            }
+        }
+        currentAmmo -= 1;
     }
 }

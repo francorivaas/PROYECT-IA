@@ -29,6 +29,7 @@ public class WeaponPowerUp : MonoBehaviour
         {
             var weapon = MyRandoms.Roulette(weapons);
             print(weapon);
+            player.SetWeapon(weapon);
             Destroy(gameObject);
         }
     }

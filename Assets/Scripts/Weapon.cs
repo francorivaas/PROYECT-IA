@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public int maxAmmo;
+    public int currentAmmo;
+    public int damage;
+    //public Transform firepoint;
+
+    private void Start()
     {
-        
+        currentAmmo = maxAmmo;
     }
 
-    // Update is called once per frame
-    void Update()
+    public virtual void Shoot()
     {
-        
+        print("shooting");
     }
 }
