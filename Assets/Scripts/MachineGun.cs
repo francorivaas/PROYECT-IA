@@ -20,6 +20,5 @@ public class MachineGun : Weapon
                 enemy.TakeDamage(damage);
             }
         }
-        currentAmmo -= 10;
     }
 }

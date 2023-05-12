@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7050863656776217167}
+  - component: {fileID: 7972120942897686940}
   m_Layer: 6
   m_Name: WeaponHolder
   m_TagString: Untagged
@@ -24,13 +25,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 513964033272692203}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.96, z: 0.43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8624864221585287124}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7972120942897686940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 513964033272692203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11c1645a607c4674f8d950a172be0b40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentWeapon: {fileID: 7756396040236049731, guid: af767c418ffa9b644a1cb9d19a98082a, type: 3}
 --- !u!1 &8531396076009096368
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,7 +632,6 @@ MonoBehaviour:
   range: 10
   damage: 5
   muzzleFlash: {fileID: 8531396076009096374}
-  currentWeapon: {fileID: 0}
 --- !u!114 &8624864221585287125
 MonoBehaviour:
   m_ObjectHideFlags: 0

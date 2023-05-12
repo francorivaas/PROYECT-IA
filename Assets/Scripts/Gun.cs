@@ -10,7 +10,7 @@ public class Gun : Weapon
     public override void Shoot()
     {
         base.Shoot();
-
+        print("shoot 1");
         RaycastHit hit;
         if (Physics.Raycast(player.transform.position, player.transform.forward, out hit, range))
         {
@@ -21,7 +21,7 @@ public class Gun : Weapon
                 print("enemy found!");
                 enemy.TakeDamage(damage);
             }
+            Debug.DrawRay(player.transform.position, player.transform.forward * range);
         }
-        currentAmmo -= 1;
     }
 }

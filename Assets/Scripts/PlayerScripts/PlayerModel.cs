@@ -13,23 +13,12 @@ public class PlayerModel : MonoBehaviour
     public float range;
     public int damage;
     public GameObject muzzleFlash;
-    [SerializeField]
-    private Weapon currentWeapon;
+
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
-    }
-
-    private void Start()
-    {
-        SetWeapon(currentWeapon);  
-    }
-
-    public void SetWeapon(Weapon currentWeapon)
-    {
-        this.currentWeapon = currentWeapon;
     }
 
     public void Move(Vector3 direction) //el modelo solo recibe la dirección
@@ -40,15 +29,10 @@ public class PlayerModel : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            currentWeapon.Shoot();
-        }
         if (Input.GetMouseButtonUp(0))
         {
             muzzleFlash.SetActive(false);
-        }
-        
+        }   
     }
 
     public void Shoot()

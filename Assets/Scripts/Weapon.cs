@@ -5,17 +5,20 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     public int maxAmmo;
-    public int currentAmmo;
+    public int usedAmmoPerShoot;
     public int damage;
     //public Transform firepoint;
 
     private void Start()
     {
-        currentAmmo = maxAmmo;
     }
 
     public virtual void Shoot()
     {
-        print("shooting");
+        maxAmmo -= usedAmmoPerShoot;
+        if (maxAmmo <= 0)
+        {
+            print("empty ! ! !");
+        }
     }
 }

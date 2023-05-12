@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class WeaponPowerUp : MonoBehaviour
 {
-    Dictionary<Weapon, float> weapons = new Dictionary<Weapon, float>();
+    Dictionary<GameObject, float> weapons = new Dictionary<GameObject, float>();
 
     [SerializeField]
-    private Weapon gun;
+    private GameObject gun;
 
     [SerializeField]
-    private Weapon shotgun;
+    private GameObject shotgun;
 
     [SerializeField]
-    private Weapon machinegun;
+    private GameObject machinegun;
 
     void Start()
     {
@@ -29,7 +29,7 @@ public class WeaponPowerUp : MonoBehaviour
         {
             var weapon = MyRandoms.Roulette(weapons);
             print(weapon);
-            player.SetWeapon(weapon);
+            player.GetComponentInChildren<PlayerWeaponHolder>().SetWeapon(weapon);
             Destroy(gameObject);
         }
     }
