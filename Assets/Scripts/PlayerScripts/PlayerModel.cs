@@ -13,12 +13,13 @@ public class PlayerModel : MonoBehaviour
     public float range;
     public int damage;
     public GameObject muzzleFlash;
-
+    private PlayerWeaponHolder playerWeaponHolder;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
+        playerWeaponHolder = GetComponentInChildren<PlayerWeaponHolder>();
     }
 
     public void Move(Vector3 direction) //el modelo solo recibe la dirección
@@ -29,27 +30,10 @@ public class PlayerModel : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            muzzleFlash.SetActive(false);
-        }   
-    }
-
-    public void Shoot()
-    {
-        muzzleFlash.SetActive(true);
-        animator.SetTrigger("Shoot");
-
-        //RaycastHit hit;
-        //if (Physics.Raycast(firepoint.transform.position, firepoint.transform.forward, out hit, range))
-        //{
-        //    print(hit.transform.name);
-        //    LifeController enemy = hit.transform.GetComponent<LifeController>();
-        //    if (enemy != null)
-        //    {
-        //        enemy.TakeDamage(damage);
-        //    }
-        //}
+            playerWeaponHolder.CurrentWeapon.GetComponent<Weapon>().Shoot(firepoint);
+        }
     }
 
     public void LookDirection(Vector3 dir)

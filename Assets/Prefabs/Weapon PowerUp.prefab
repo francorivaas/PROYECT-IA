@@ -110,6 +110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79bbf34a630801a47a0d1689307a1cc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gun: {fileID: 5324275512329793048, guid: 965628f6155a86945960371a6549a555, type: 3}
-  shotgun: {fileID: 7756396040236049731, guid: af767c418ffa9b644a1cb9d19a98082a, type: 3}
-  machinegun: {fileID: 5309282885661806932, guid: 73f1e1031a867b7469f075cf0655da67, type: 3}
+  gun: {fileID: 5324275512329793055, guid: 965628f6155a86945960371a6549a555, type: 3}
+  shotgun: {fileID: 7756396040236049740, guid: af767c418ffa9b644a1cb9d19a98082a, type: 3}
+  machinegun: {fileID: 5309282885661806955, guid: 73f1e1031a867b7469f075cf0655da67, type: 3}

@@ -4,24 +4,21 @@ using UnityEngine;
 
 public class Shotgun : Weapon
 {
-    public float range;
-    public PlayerModel player;
-
-    public override void Shoot()
+    public override void Shoot(Transform firepoint)
     {
-        base.Shoot();
-        print("shoot 1");
+        base.Shoot(firepoint);
         RaycastHit hit;
-        if (Physics.Raycast(player.transform.position, player.transform.forward, out hit, range))
+        if (Physics.Raycast(firepoint.transform.position, firepoint.transform.forward, out hit, range))
         {
-            print(hit.transform.name);
+            print(hit.transform.name + hit.transform.position);
+
             LifeController enemy = hit.transform.GetComponent<LifeController>();
             if (enemy != null)
             {
                 print("enemy found!");
                 enemy.TakeDamage(damage);
             }
-            Debug.DrawRay(player.transform.position, player.transform.forward * range);
+            else print("no enemy");
         }
     }
 }

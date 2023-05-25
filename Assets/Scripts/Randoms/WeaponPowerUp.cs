@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class WeaponPowerUp : MonoBehaviour
 {
-    Dictionary<GameObject, float> weapons = new Dictionary<GameObject, float>();
+    Dictionary<Weapon, float> weapons = new Dictionary<Weapon, float>();
 
     [SerializeField]
-    private GameObject gun;
+    private Weapon gun;
 
     [SerializeField]
-    private GameObject shotgun;
+    private Weapon shotgun;
 
     [SerializeField]
-    private GameObject machinegun;
+    private Weapon machinegun;
 
     void Start()
     {

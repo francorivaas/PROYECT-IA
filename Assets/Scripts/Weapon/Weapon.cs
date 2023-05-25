@@ -4,21 +4,15 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    public int maxAmmo;
-    public int usedAmmoPerShoot;
     public int damage;
-    //public Transform firepoint;
+    public float range;
 
     private void Start()
     {
     }
 
-    public virtual void Shoot()
+    public virtual void Shoot(Transform firePoint)
     {
-        maxAmmo -= usedAmmoPerShoot;
-        if (maxAmmo <= 0)
-        {
-            print("empty ! ! !");
-        }
+
     }
 }
