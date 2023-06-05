@@ -19,7 +19,9 @@ public class ClownController : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("Hey");
         clown = GetComponent<ClownModel>();
+        clown.GetNextNodeWaypoint();
         InitializeSteering();
         InitializedFSM();
         InitializedTree();
@@ -82,11 +84,13 @@ public class ClownController : MonoBehaviour
         
 
         var isTimeOver = new TreeQuestion(IsTimeOver, move, idle);
+        var isEndOfPath = new TreeQuestion(IsEndOfPath, isTimeOver, move);
+        var isPursuitOver = new TreeQuestion(IsPursuitTimeOver, move, pursuit);
         //var isTouchingPlayer = new TreeQuestion(IsTouchingPlayer, dead, isTimeOver);
         //var isTouchingFloor = new TreeQuestion(IsTouchingFloor, isTouchingPlayer, isTouchingPlayerToKill);
         //var isTouchingPlayerToKill = new TreeQuestion(IsTouchingPlayer, attack, isLookingAtPlayer);
         var isTouchingPlayer = new TreeQuestion(IsTouchingPlayer, attack, pursuit);
-        var hasReachedWaypoint = new TreeQuestion(HasReachedWaypoint, isTimeOver, move);
+        var hasReachedWaypoint = new TreeQuestion(HasReachedWaypoint, isEndOfPath, move);
         var isLookingAtPlayer = new TreeQuestion(IsLookingAtPlayer, isTouchingPlayer, hasReachedWaypoint);
         
         root = isLookingAtPlayer;
@@ -109,6 +113,11 @@ public class ClownController : MonoBehaviour
         return clown.IsTouchingPlayer;
     }
 
+    bool IsEndOfPath()
+    {
+        return clown.IsEndOfPath;
+    }
+
     //bool IsTouchingFloor()
     //{
     //    return clown.IsTouchingFloor;
@@ -117,6 +126,11 @@ public class ClownController : MonoBehaviour
     private bool IsTimeOver()
     {
         return clown.CurrentTimer < 0;
+    }
+
+    private bool IsPursuitTimeOver()
+    {
+        return clown.CurrentPursuitTimer < 0;
     }
 
     private void ActionIdle()

@@ -24,7 +24,7 @@ public class BFS<T>
         {
             watchdog--;
             var curr = pending.Dequeue();
-            Debug.Log("BFS");
+            //Debug.Log("BFS");
             if (satiesfies(curr))
             {
                 var path = new List<T>();

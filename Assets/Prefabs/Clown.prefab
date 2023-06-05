@@ -102,7 +102,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visionRange: 8
   visionAngle: 120
-  maxTime: 3
+  maxIdleTime: 3
+  maxPursuitTime: 3
   target: {fileID: 0}
   layer:
     serializedVersion: 2

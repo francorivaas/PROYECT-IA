@@ -5,5 +5,5 @@ using UnityEngine;
 public class Nodos : MonoBehaviour
 {
     public List<Nodos> neighbours;
-    
+    public bool IsEndpoint; 
 }

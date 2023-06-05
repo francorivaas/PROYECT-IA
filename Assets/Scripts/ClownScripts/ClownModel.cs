@@ -7,21 +7,30 @@ public class ClownModel : MonoBehaviour
     //public float jumpSpeed;
     public float visionRange;
     public float visionAngle;
-    public float maxTime;
+    public float maxIdleTime;
+    public float maxPursuitTime;
     private Rigidbody body;
     private PlayerModel lastPlayerTouch;
     private Animator animator;
     public PlayerModel target;
     public LayerMask layer;
-    private float timer;
+    private float idleTimer;
+    private float pursuitTimer;
     private bool touchPlayer;
     private bool touchFloor;
     private bool lookingAtPlayer;
     public List<Transform> waypoints;
+    public List<Nodos> deadEndWaypoints;
+    public Nodos startingWaypoint;
+    public AgentController agentController;
+    private bool startIdle = false;
+
     public float speed;
     public int waypointMark;
+    public int nodeMark;
     public int damage = 10;
-    private bool reverseWaypointTraversal = false;
+    //private bool reverseWaypointTraversal = false;
+    public Transform waypointObjective; //=> waypoints[waypointMark];
 
     private void Awake()
     {
@@ -29,61 +38,114 @@ public class ClownModel : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
     }
 
+    //public void GetNextWaypointMark()
+    //{
+    //    if (!reverseWaypointTraversal)
+    //    {
+    //        if(waypoints.Count -1 > waypointMark)
+    //        {
+    //            waypointMark++;
+    //        }
+    //        else
+    //        {
+    //            reverseWaypointTraversal = true;
+    //        }
+    //    }
+    //    else
+    //    {
+    //        if(waypointMark > 0)
+    //        {
+    //            waypointMark--;
+    //        }
+    //        else
+    //        {
+    //            reverseWaypointTraversal = false;
+    //        }
+    //    }
+    //}
+
     public void GetNextWaypointMark()
     {
-        if (!reverseWaypointTraversal)
+        waypointMark++;
+        Debug.Log(waypoints.Count);
+        Debug.Log(waypointMark);
+        if ((waypoints.Count -1 < waypointMark))
         {
-            if(waypoints.Count -1 > waypointMark)
-            {
-                waypointMark++;
-            }
-            else
-            {
-                reverseWaypointTraversal = true;
-            }
+            startIdle = true;
+            GetNextNodeWaypoint();
         }
         else
         {
-            if(waypointMark > 0)
-            {
-                waypointMark--;
-            }
-            else
-            {
-                reverseWaypointTraversal = false;
-            }
+            waypointObjective = waypoints[waypointMark];
         }
+        
     }
 
-    public Transform waypointObjective => waypoints[waypointMark];
+    public void GetNextNodeWaypoint()
+    {
+        agentController.startNode = deadEndWaypoints[nodeMark];
+
+        nodeMark++;
+        if(deadEndWaypoints.Count < nodeMark)
+        {
+            nodeMark = 0;
+        }
+        agentController.goalNode = deadEndWaypoints[nodeMark];
+        agentController.BFSRun();
+    }
+
 
     public float GetRandomTime()
     {
         //genero el timer
-        return Random.Range(0, maxTime);
+        return Random.Range(0, maxIdleTime);
     }
 
     public void SetTime(float timer)
     {
         //lo seteamos
-        this.timer = timer;
+        this.idleTimer = timer;
+    }
+
+    public void SetPursuitTime(float timer)
+    {
+        pursuitTimer = timer;
     }
 
     public void RunTimer()
     {
         //lo corremos
-        timer -= Time.deltaTime;
+        idleTimer -= Time.deltaTime;
     }
+
+    public void RunPursuitTimer()
+    {
+        pursuitTimer -= Time.deltaTime;
+    }
+
+    
 
     public float CurrentTimer
     {
         set
         {
-            timer = value;
+            idleTimer = value;
         }
         get
         {
-            return timer;
+            return idleTimer;
+        }
+    }
+
+    public float CurrentPursuitTimer
+    {
+        set
+        {
+            pursuitTimer = value;
+        }
+        get
+        {
+            return pursuitTimer;
         }
     }
 
@@ -167,6 +229,7 @@ public class ClownModel : MonoBehaviour
 
     public void Move(Vector3 dir)
     {
+        dir.y = transform.position.y;
         Vector3 dirSpeed = dir * speed;
         dirSpeed.y = body.velocity.y;
         body.velocity = dirSpeed;
@@ -193,10 +256,36 @@ public class ClownModel : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, waypoints[waypointMark].transform.position, Time.deltaTime * speed);
     }
 
+    public void SetWaypoints(List<Nodos> nodeWaypoints)
+    {
+        var list = new List<Transform>();
+
+        for(int i = 0; i< nodeWaypoints.Count; i++)
+        {
+            Transform tran = nodeWaypoints[i].transform;
+            list.Add(tran);
+        }
+        SetWaypoints(list);
+    }
+
+    public void SetWaypoints(List<Transform> nodeWaypoints)
+    {
+        waypointMark = 0;
+        if (nodeWaypoints.Count == 0) return;
+        waypoints = nodeWaypoints;
+        waypointObjective = waypoints[0].transform;
+    }
+
     public bool ReachedWaypoint()
     {
         return (Vector3.Distance(transform.position, waypointObjective.position) < 3f);
     }
+
+    public bool EndOfPath()
+    {
+        return (waypointMark == waypoints.Count - 1);
+    }
+
 
     public PlayerModel LastPlayerTouch => lastPlayerTouch;
 
@@ -207,6 +296,11 @@ public class ClownModel : MonoBehaviour
     public bool IsOnWaypoint => ReachedWaypoint();
 
     public bool IsLookingAtPlayer => lookingAtPlayer;
+
+    public bool IsEndOfPath => EndOfPath();
+
+    public bool IsOnIdleState => startIdle;
+
 
     public Vector3 NextWaypointDir => GetDirectionToWaypoint();
 

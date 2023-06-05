@@ -12,12 +12,15 @@ public class ClownPursuitState<T> : ClownStateBase<T>
     {
         _avoidance = avoidance;
         _action = action;
-        if (_avoidance == null) Debug.Log("FUCK");
+        
     }
 
     public override void Awake()
     {
-        base.Awake();   
+        base.Awake();
+        var timer = clown.maxPursuitTime;
+        clown.CurrentPursuitTimer = timer;
+        
     }
 
     public override void Execute()
@@ -29,6 +32,14 @@ public class ClownPursuitState<T> : ClownStateBase<T>
 
         clown.Move(dir);
         clown.LookDir(dir);
+        if (!clown.IsLookingAtPlayer)
+        {
+            if(clown.CurrentPursuitTimer > 0)
+            {
+                clown.RunPursuitTimer();
+            }
+        }
+        
     }
 
     public override void Sleep()
