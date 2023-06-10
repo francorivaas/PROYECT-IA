@@ -7,7 +7,6 @@ public class PlayerModel : MonoBehaviour
     private Rigidbody rb;
     public GameObject model;
     public Transform firepoint;
-    private Animator animator;
     public float rotationSpeed;
     public float speed;
     public float range;
@@ -18,7 +17,6 @@ public class PlayerModel : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        animator = GetComponentInChildren<Animator>();
         playerWeaponHolder = GetComponentInChildren<PlayerWeaponHolder>();
     }
 
@@ -32,7 +30,16 @@ public class PlayerModel : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            playerWeaponHolder.CurrentWeapon.GetComponent<Weapon>().Shoot(firepoint);
+            Weapon weapon = playerWeaponHolder.CurrentWeapon.GetComponent<Weapon>();
+            if (weapon != null)
+            {
+                weapon.Shoot(firepoint);
+                muzzleFlash.SetActive(true);
+            }
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+               muzzleFlash.SetActive(false);
         }
     }
 
