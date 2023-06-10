@@ -86,10 +86,11 @@ public class ClownModel : MonoBehaviour
         agentController.startNode = deadEndWaypoints[nodeMark];
 
         nodeMark++;
-        if(deadEndWaypoints.Count < nodeMark)
+        if(deadEndWaypoints.Count <= nodeMark)
         {
             nodeMark = 0;
         }
+        
         agentController.goalNode = deadEndWaypoints[nodeMark];
         agentController.BFSRun();
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class ClownController : MonoBehaviour
 {
     FSM<ClownStateEnum> fsm;
+    State<ClownStateEnum> _initState;
     private ClownModel clown;
     ITreeNode root;
     public PlayerModel target;
@@ -21,10 +22,16 @@ public class ClownController : MonoBehaviour
     {
         Debug.Log("Hey");
         clown = GetComponent<ClownModel>();
-        clown.GetNextNodeWaypoint();
+        
         InitializeSteering();
         InitializedFSM();
         InitializedTree();
+    }
+
+    private void Start()
+    {
+        fsm.SetInit(_initState);
+        clown.GetNextNodeWaypoint();
     }
 
     public void InitializedFSM()
@@ -70,7 +77,7 @@ public class ClownController : MonoBehaviour
         pursuit.AddTransition(ClownStateEnum.Idle, idle);
         pursuit.AddTransition(ClownStateEnum.Move, move);
 
-        fsm.SetInit(idle);
+        _initState = idle;
     }
 
     public void InitializedTree()
