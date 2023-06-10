@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerModel : MonoBehaviour
@@ -26,6 +27,7 @@ public class PlayerModel : MonoBehaviour
         directionSpeed.y = rb.velocity.y;
         rb.velocity = direction * speed;
     }
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -39,7 +41,7 @@ public class PlayerModel : MonoBehaviour
         }
         else if (Input.GetMouseButtonUp(0))
         {
-               muzzleFlash.SetActive(false);
+            muzzleFlash.SetActive(false);
         }
     }
 
