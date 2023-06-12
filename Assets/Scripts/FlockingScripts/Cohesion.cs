@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +12,6 @@ public class Cohesion : MonoBehaviour, IFlocking
         {
             center += boids[i].Position;
         }
-
         if (boids.Count > 0)
         {
             center /= boids.Count;
