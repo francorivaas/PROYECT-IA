@@ -445,7 +445,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3680132104234244591, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
       propertyPath: maxPursuitTime
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3680132104234244591, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
       propertyPath: agentController

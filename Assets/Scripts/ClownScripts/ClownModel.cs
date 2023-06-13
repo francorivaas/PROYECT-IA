@@ -24,6 +24,8 @@ public class ClownModel : MonoBehaviour
     public Nodos startingWaypoint;
     public AgentController agentController;
     private bool startIdle = false;
+    private bool tookDamage = false;
+    private LifeController lifeController;
 
     public float speed;
     public int waypointMark;
@@ -34,8 +36,10 @@ public class ClownModel : MonoBehaviour
 
     private void Awake()
     {
+        lifeController = GetComponent<LifeController>();
         body = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
+        lifeController.OnHit += OnHit;
     }
 
     //public void GetNextWaypointMark()
@@ -158,6 +162,7 @@ public class ClownModel : MonoBehaviour
             if (player.GetComponent<LifeController>() != null)
             {
                 player.GetComponent<LifeController>().TakeDamage(10);
+                
             }
         }
     }
@@ -287,6 +292,16 @@ public class ClownModel : MonoBehaviour
         return (waypointMark == waypoints.Count - 1);
     }
 
+    public void OnHit()
+    {
+        tookDamage = true;
+    }
+
+    public void NoLongerCaresOfDamage()
+    {
+        tookDamage = false;
+    }
+
 
     public PlayerModel LastPlayerTouch => lastPlayerTouch;
 
@@ -301,6 +316,8 @@ public class ClownModel : MonoBehaviour
     public bool IsEndOfPath => EndOfPath();
 
     public bool IsOnIdleState => startIdle;
+
+    public bool IsTakingDamage => tookDamage;
 
 
     public Vector3 NextWaypointDir => GetDirectionToWaypoint();

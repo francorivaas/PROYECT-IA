@@ -38,6 +38,10 @@ public class ClownPursuitState<T> : ClownStateBase<T>
             {
                 clown.RunPursuitTimer();
             }
+            else
+            {
+                clown.NoLongerCaresOfDamage();
+            }
         }
         
     }

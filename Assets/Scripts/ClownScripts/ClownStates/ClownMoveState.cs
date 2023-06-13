@@ -16,6 +16,7 @@ public class ClownMoveState<T> : ClownStateBase<T>
     public override void Awake()
     {
         base.Awake();
+        
     }
 
     public override void Execute()

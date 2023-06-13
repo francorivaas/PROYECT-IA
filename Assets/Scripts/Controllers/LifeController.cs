@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public delegate void SimpleDelegate();
+
 public class LifeController : MonoBehaviour
 {
     [SerializeField] private int maxLife;
@@ -9,6 +11,8 @@ public class LifeController : MonoBehaviour
     private bool isDead;
 
     public LifebarController lifebar;
+
+    public event SimpleDelegate OnHit;
 
     private void Start()
     {
@@ -20,6 +24,7 @@ public class LifeController : MonoBehaviour
     {
         if (currentLife > 0)
         {
+            OnHit?.Invoke();
             currentLife -= damage;
             lifebar.SetHealth(currentLife);
             CheckLife();

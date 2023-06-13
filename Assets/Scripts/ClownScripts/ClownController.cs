@@ -99,8 +99,9 @@ public class ClownController : MonoBehaviour
         var isTouchingPlayer = new TreeQuestion(IsTouchingPlayer, attack, pursuit);
         var hasReachedWaypoint = new TreeQuestion(HasReachedWaypoint, isEndOfPath, move);
         var isLookingAtPlayer = new TreeQuestion(IsLookingAtPlayer, isTouchingPlayer, hasReachedWaypoint);
+        var isTakingDamage = new TreeQuestion(IsTakingDamage, pursuit, isLookingAtPlayer);
         
-        root = isLookingAtPlayer;
+        root = isTakingDamage;
     }
 
     bool HasReachedWaypoint()
@@ -133,6 +134,11 @@ public class ClownController : MonoBehaviour
     private bool IsTimeOver()
     {
         return clown.CurrentTimer < 0;
+    }
+
+    private bool IsTakingDamage()
+    {
+        return clown.IsTakingDamage;
     }
 
     private bool IsPursuitTimeOver()
