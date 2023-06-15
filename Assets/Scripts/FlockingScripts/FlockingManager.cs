@@ -23,7 +23,8 @@ public class FlockingManager : MonoBehaviour
         Run();   
     }
 
-    void Run()
+    void Run() //esto debería devolverme un vector, devolver la dirección
+        //y llamarla desde un estado. puede ser un steering behaviour
     {
         boids.Clear();
 
@@ -33,7 +34,7 @@ public class FlockingManager : MonoBehaviour
         {
             var curr = colliders[i];
             var boid = curr.GetComponent<IBoid>();
-            if (boid == null) continue;
+            if (boid == null || boid == self) continue;
             boids.Add(boid);
         }
 
@@ -45,5 +46,6 @@ public class FlockingManager : MonoBehaviour
             dir += currFlock.GetDir(boids, self);
         }
         self.Move(dir.normalized);
+        self.LookDirection(dir.normalized);
     }
 }
