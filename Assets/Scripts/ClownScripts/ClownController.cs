@@ -88,7 +88,6 @@ public class ClownController : MonoBehaviour
         var attack = new TreeAction(ActionAttack);
         var move = new TreeAction(ActionMove);
         var pursuit = new TreeAction(ActionPursuit);
-        
 
         var isTimeOver = new TreeQuestion(IsTimeOver, move, idle);
         var isEndOfPath = new TreeQuestion(IsEndOfPath, isTimeOver, move);

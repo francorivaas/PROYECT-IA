@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClownFlocking : MonoBehaviour, IBoid
+public class EnemyFlocking : MonoBehaviour, IBoid
 {
     public float radius;
     public float speed;
