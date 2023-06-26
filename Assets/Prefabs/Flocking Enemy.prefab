@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1346259433212468712}
   - component: {fileID: 2095428122050611712}
   - component: {fileID: 7656355483409227116}
+  - component: {fileID: 3162635632237357102}
   m_Layer: 7
   m_Name: Flocking Enemy
   m_TagString: Untagged
@@ -123,6 +124,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d2f236b89a928142b1ad91c64a5c018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  multiplier: 1
+--- !u!114 &3162635632237357102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346259433212468713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b89c3fe3446922f4fa68fa71558c8513, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
   multiplier: 1
 --- !u!1 &6033079031113810936
 GameObject:

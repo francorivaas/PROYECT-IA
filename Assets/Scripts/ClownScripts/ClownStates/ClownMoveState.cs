@@ -25,7 +25,6 @@ public class ClownMoveState<T> : ClownStateBase<T>
         if (clown.IsOnWaypoint)
         {
             clown.GetNextWaypointMark();
-            Debug.Log("hey");
         }
         else
         {
