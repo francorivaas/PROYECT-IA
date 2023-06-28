@@ -11,8 +11,11 @@ public class ClownAttackState<T> : ClownStateBase<T>
         
         if (player != null)
         {
-            clown.Attack(player);
-            Debug.Log("On Attack");
+            if (player.GetComponent<LifeController>() != null)
+            {
+                player.GetComponent<LifeController>().TakeDamage(10);
+
+            }
         }
     }
 }

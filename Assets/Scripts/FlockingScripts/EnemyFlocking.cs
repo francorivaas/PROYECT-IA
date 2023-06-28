@@ -81,7 +81,18 @@ public class EnemyFlocking : MonoBehaviour, IBoid
         return waypoints[waypointMark];
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        PlayerModel player = other.gameObject.GetComponent<PlayerModel>();
+        if (player != null)
+        {
+            if (player.GetComponent<LifeController>() != null)
+            {
+                player.GetComponent<LifeController>().TakeDamage(2);
 
+            }
+        }
+    }
 
     public Transform currentObjective => Objective().transform;
     public bool IsOnWaypoint => ReachedWaypoint();
