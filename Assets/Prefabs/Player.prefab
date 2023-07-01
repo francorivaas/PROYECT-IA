@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentWeapon: {fileID: 5324275512329793055, guid: 965628f6155a86945960371a6549a555, type: 3}
+  weaponName: {fileID: 0}
 --- !u!1 &7305770725851006284
 GameObject:
   m_ObjectHideFlags: 0
@@ -69,7 +70,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7305770725851006284}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2.21, z: 0.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -582,7 +583,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLife: 100
   currentLife: 0
-  lifebar: {fileID: 0}
+  lifebar: {fileID: 8504517491082736005, guid: ba0a28080a80bc1418ef43333adaf27e, type: 3}
 --- !u!1 &8624864222113389440
 GameObject:
   m_ObjectHideFlags: 0

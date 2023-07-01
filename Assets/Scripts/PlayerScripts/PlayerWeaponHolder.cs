@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerWeaponHolder : MonoBehaviour
 {
     [SerializeField]
     private Weapon currentWeapon;
+
+    public Text weaponName;
 
     public Weapon CurrentWeapon => currentWeapon;
 
@@ -14,10 +17,12 @@ public class PlayerWeaponHolder : MonoBehaviour
     void Start()
     {
         SetWeapon(currentWeapon);
+        weaponName.text = currentWeapon.gameObject.name.ToString();
     }
 
     public void SetWeapon(Weapon currentWeapon)
     {
         this.currentWeapon = currentWeapon;
+        weaponName.text = currentWeapon.gameObject.name.ToString();
     }
 }
