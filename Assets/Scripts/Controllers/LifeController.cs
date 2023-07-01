@@ -31,6 +31,11 @@ public class LifeController : MonoBehaviour
         }
     }
 
+    public int ReturnCurrentLife()
+    {
+        return currentLife;
+    }
+
     private void CheckLife()
     {
         if (currentLife <= 0 && !isDead)

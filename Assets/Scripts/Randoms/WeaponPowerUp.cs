@@ -15,6 +15,9 @@ public class WeaponPowerUp : MonoBehaviour
     [SerializeField]
     private Weapon machinegun;
 
+    private PlayerModel player;
+    private LifeController playerLifeController;
+
     void Start()
     {
         weapons[gun] = 4;
@@ -24,9 +27,36 @@ public class WeaponPowerUp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        PlayerModel player = other.gameObject.GetComponent<PlayerModel>();
+        player = other.gameObject.GetComponent<PlayerModel>();
         if (player != null)
         {
+            playerLifeController = player.GetComponent<LifeController>();
+            if (playerLifeController != null)
+            {
+                int currentLife = playerLifeController.ReturnCurrentLife();
+
+                if (currentLife > 50)
+                {
+                    weapons[gun] = 10;
+                    weapons[shotgun] = 2;
+                    weapons[machinegun] = 0;
+                }
+
+                else if (currentLife < 50)
+                {
+                    weapons[gun] = 2;
+                    weapons[shotgun] = 3;
+                    weapons[machinegun] = 5;
+                }
+
+                else if (currentLife < 20)
+                {
+                    weapons[gun] = 0;
+                    weapons[shotgun] = 5;
+                    weapons[machinegun] = 10;
+                }
+            }
+
             var weapon = MyRandoms.Roulette(weapons);
             print(weapon);
             player.GetComponentInChildren<PlayerWeaponHolder>().SetWeapon(weapon);
