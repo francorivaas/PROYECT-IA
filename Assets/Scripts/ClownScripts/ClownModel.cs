@@ -313,7 +313,7 @@ public class ClownModel : MonoBehaviour
         Nodos nodo = getNodes.GetComponent<Nodos>();
         if(nodo != null)
         {
-            startingWaypoint = nodo;
+            agentController.startNode = nodo;
         }
     }
 
