@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class ClownPursuitState<T> : ClownStateBase<T>
 {
-    ISteering _avoidance;
     ISteering _action;
     Vector3 dir;
 
-    public ClownPursuitState(ISteering avoidance, ISteering action)
+    public ClownPursuitState(ISteering action)
     {
-        _avoidance = avoidance;
+        
         _action = action;
         
     }
@@ -27,8 +26,8 @@ public class ClownPursuitState<T> : ClownStateBase<T>
     {
 
         base.Execute();
-        Vector3 dirAvoidance = _avoidance.GetDir();
-        dir = (_action.GetDir() + dirAvoidance * 2).normalized;
+        
+        dir = _action.GetDir().normalized;
 
         clown.Move(dir);
         clown.LookDir(dir);
@@ -48,6 +47,7 @@ public class ClownPursuitState<T> : ClownStateBase<T>
 
     public override void Sleep()
     {
-        base.Sleep();        
+        base.Sleep();
+        clown.ResumeMovePostPursuit();
     }
 }

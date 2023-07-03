@@ -26,11 +26,20 @@ public class ClownModel : MonoBehaviour
     private bool startIdle = false;
     private bool tookDamage = false;
     private LifeController lifeController;
+    private float _attackTimer;
 
+    public LayerMask searchMask;
+    public float attackTimer;
     public float speed;
     public int waypointMark;
     public int nodeMark;
     public int damage = 10;
+
+    public float avoidanceAngle;
+    public float avoidanceRadius;
+    public int avoidanceMaxObstacles;
+    public LayerMask avoidanceMask;
+    public float avoidanceMultiplier;
     //private bool reverseWaypointTraversal = false;
     public Transform waypointObjective; //=> waypoints[waypointMark];
 
@@ -40,6 +49,7 @@ public class ClownModel : MonoBehaviour
         body = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
         lifeController.OnHit += OnHit;
+        SetAttackTimer(attackTimer);
     }
 
     //public void GetNextWaypointMark()
@@ -96,7 +106,13 @@ public class ClownModel : MonoBehaviour
         }
         
         agentController.goalNode = deadEndWaypoints[nodeMark];
-        agentController.BFSRun();
+        agentController.AStarRun();
+    }
+
+    public void ResumeMovePostPursuit()
+    {
+        SetStartingPoint();
+        agentController.AStarRun();
     }
 
 
@@ -112,6 +128,11 @@ public class ClownModel : MonoBehaviour
         this.idleTimer = timer;
     }
 
+    public void SetAttackTimer(float timer)
+    {
+        _attackTimer = attackTimer;
+    }
+
     public void SetPursuitTime(float timer)
     {
         pursuitTimer = timer;
@@ -121,6 +142,11 @@ public class ClownModel : MonoBehaviour
     {
         //lo corremos
         idleTimer -= Time.deltaTime;
+    }
+
+    public void RunAttackTimer()
+    {
+        _attackTimer -= Time.deltaTime;
     }
 
     public void RunPursuitTimer()
@@ -214,9 +240,33 @@ public class ClownModel : MonoBehaviour
         {
             touchPlayer = true;
             lastPlayerTouch = player;
-            animator.SetTrigger("Attack");
+            
         }
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        var player = LastPlayerTouch;
+
+        if (player != null)
+        {
+            if (_attackTimer <= 0)
+            {
+                if (player.GetComponent<LifeController>() != null)
+                {
+                    animator.SetTrigger("Attack");
+                    player.GetComponent<LifeController>().TakeDamage(10);
+                    SetAttackTimer(attackTimer);
+                }
+                else Debug.Log("Null");
+            }
+            else
+            {
+                RunAttackTimer();
+            }
+        }
+    }
+
 
     private void OnTriggerExit(Collider other)
     {
@@ -228,6 +278,45 @@ public class ClownModel : MonoBehaviour
         }
     }
 
+    private Collider CheckNodesAround()
+    {
+        Collider[] colliderNodos = new Collider[3];
+
+        int obj = -1;
+        var cantidadNodos = Physics.OverlapSphereNonAlloc(transform.position, 16f, colliderNodos, searchMask);
+        for(int i = 0; i < cantidadNodos; i++)
+        {
+            if (colliderNodos[i].GetComponent<Nodos>() != null)
+            {
+                float resultado = -1;
+                var cant = Vector3.Distance(transform.position, colliderNodos[i].transform.position);
+                if (resultado == -1 || resultado > cant)
+                {
+                    obj = i;
+                }
+            }
+        }
+        if (obj != -1)
+            return colliderNodos[obj];
+        else
+        {
+            Debug.Log("Null");
+            return null;
+
+        }
+
+    }
+
+    private void SetStartingPoint()
+    {
+        var getNodes = CheckNodesAround();
+        Nodos nodo = getNodes.GetComponent<Nodos>();
+        if(nodo != null)
+        {
+            startingWaypoint = nodo;
+        }
+    }
+
     public void Dead()
     {
         Destroy(gameObject);
@@ -235,6 +324,7 @@ public class ClownModel : MonoBehaviour
 
     public void Move(Vector3 dir)
     {
+        dir = (dir + GetDirAvoidance() * avoidanceMultiplier).normalized;
         dir.y = transform.position.y;
         Vector3 dirSpeed = dir * speed;
         dirSpeed.y = body.velocity.y;
@@ -284,7 +374,7 @@ public class ClownModel : MonoBehaviour
 
     public bool ReachedWaypoint()
     {
-        return (Vector3.Distance(transform.position, waypointObjective.position) < 3f);
+        return (Vector3.Distance(transform.position, waypointObjective.position) < 2f);
     }
 
     public bool EndOfPath()
@@ -300,6 +390,29 @@ public class ClownModel : MonoBehaviour
     public void NoLongerCaresOfDamage()
     {
         tookDamage = false;
+    }
+
+    public Vector3 GetDirAvoidance()
+    {
+        Collider[] obstacles = new Collider[avoidanceMaxObstacles];
+        int countObstacles = Physics.OverlapSphereNonAlloc(transform.position, avoidanceRadius, obstacles, avoidanceMask);
+        Vector3 dirToAvoid = Vector3.zero;
+        int detectedObstacles = 0;
+        for (int i = 0; i < countObstacles; i++)
+        {
+            Collider currObstacle = obstacles[i];
+            Vector3 closestPoint = currObstacle.ClosestPointOnBounds(transform.position);
+            Vector3 diffToPoint = closestPoint - transform.position;
+            float angleToObstacle = Vector3.Angle(transform.forward, diffToPoint);
+            if (angleToObstacle > avoidanceAngle) continue;
+            float distance = diffToPoint.magnitude;
+            detectedObstacles++;
+            dirToAvoid += -(diffToPoint).normalized * (avoidanceRadius - distance);
+        }
+        if (countObstacles != 0)
+            dirToAvoid /= countObstacles;
+
+        return dirToAvoid.normalized;
     }
 
 
@@ -318,6 +431,8 @@ public class ClownModel : MonoBehaviour
     public bool IsOnIdleState => startIdle;
 
     public bool IsTakingDamage => tookDamage;
+
+    public Nodos CurrentWaypoint => startingWaypoint;
 
 
     public Vector3 NextWaypointDir => GetDirectionToWaypoint();

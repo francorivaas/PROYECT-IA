@@ -11,12 +11,6 @@ public class ClownController : MonoBehaviour
     public PlayerModel target;
     public float timeAvoidance;
     ISteering _steering;
-    ISteering _obsAvoidance;
-    public float angle;
-    public float radius;
-    public int maxObstacles;
-    public LayerMask mask;
-    public float avoMultiplier;
 
     private void Awake()
     {
@@ -42,14 +36,14 @@ public class ClownController : MonoBehaviour
         var idle = new ClownIdleState<ClownStateEnum>(ClownStateEnum.Attack);
         //var jump = new ClownJumpState<ClownStateEnum>();
         var dead = new ClownDiedState<ClownStateEnum>();
-        var attack = new ClownAttackState<ClownStateEnum>();
+        //var attack = new ClownAttackState<ClownStateEnum>();
         var move = new ClownMoveState<ClownStateEnum>(ClownStateEnum.Idle, ClownStateEnum.Attack);
-        var pursuit = new ClownPursuitState<ClownStateEnum>(_obsAvoidance, _steering);
+        var pursuit = new ClownPursuitState<ClownStateEnum>(_steering);
 
         list.Add(idle);
         //list.Add(jump);
         list.Add(dead);
-        list.Add(attack);
+        //list.Add(attack);
         list.Add(move);
         list.Add(pursuit);
 
@@ -60,22 +54,23 @@ public class ClownController : MonoBehaviour
 
         //idle.AddTransition(ClownStateEnum.Jump, jump);
         idle.AddTransition(ClownStateEnum.Move, move);
-        idle.AddTransition(ClownStateEnum.Attack, attack);
+        //idle.AddTransition(ClownStateEnum.Attack, attack);
         idle.AddTransition(ClownStateEnum.Pursuit, pursuit);
 
         //jump.AddTransition(ClownStateEnum.Idle, idle);
         //jump.AddTransition(ClownStateEnum.Attack, attack);
 
         move.AddTransition(ClownStateEnum.Idle, idle);
-        move.AddTransition(ClownStateEnum.Attack, attack);
+        //move.AddTransition(ClownStateEnum.Attack, attack);
         move.AddTransition(ClownStateEnum.Pursuit, pursuit);
 
-        attack.AddTransition(ClownStateEnum.Pursuit, pursuit);
-        attack.AddTransition(ClownStateEnum.Move, move);
-        attack.AddTransition(ClownStateEnum.Idle, idle);
+        //attack.AddTransition(ClownStateEnum.Pursuit, pursuit);
+        //attack.AddTransition(ClownStateEnum.Move, move);
+        //attack.AddTransition(ClownStateEnum.Idle, idle);
 
         pursuit.AddTransition(ClownStateEnum.Idle, idle);
         pursuit.AddTransition(ClownStateEnum.Move, move);
+        //pursuit.AddTransition(ClownStateEnum.Attack, attack);
 
         _initState = idle;
     }
@@ -85,7 +80,7 @@ public class ClownController : MonoBehaviour
         var idle = new TreeAction(ActionIdle);
         //var jump = new TreeAction(ActionJump);
         //var dead = new TreeAction(ActionDead);
-        var attack = new TreeAction(ActionAttack);
+        //var attack = new TreeAction(ActionAttack);
         var move = new TreeAction(ActionMove);
         var pursuit = new TreeAction(ActionPursuit);
 
@@ -95,9 +90,9 @@ public class ClownController : MonoBehaviour
         //var isTouchingPlayer = new TreeQuestion(IsTouchingPlayer, dead, isTimeOver);
         //var isTouchingFloor = new TreeQuestion(IsTouchingFloor, isTouchingPlayer, isTouchingPlayerToKill);
         //var isTouchingPlayerToKill = new TreeQuestion(IsTouchingPlayer, attack, isLookingAtPlayer);
-        var isTouchingPlayer = new TreeQuestion(IsTouchingPlayer, attack, pursuit);
+        //var isTouchingPlayer = new TreeQuestion(IsTouchingPlayer, attack, pursuit);
         var hasReachedWaypoint = new TreeQuestion(HasReachedWaypoint, isEndOfPath, move);
-        var isLookingAtPlayer = new TreeQuestion(IsLookingAtPlayer, isTouchingPlayer, hasReachedWaypoint);
+        var isLookingAtPlayer = new TreeQuestion(IsLookingAtPlayer, isPursuitOver, hasReachedWaypoint);
         var isTakingDamage = new TreeQuestion(IsTakingDamage, pursuit, isLookingAtPlayer);
         
         root = isTakingDamage;
@@ -161,10 +156,10 @@ public class ClownController : MonoBehaviour
     //    fsm.Transition(ClownStateEnum.Dead);
     //}
 
-    private void ActionAttack()
-    {
-        fsm.Transition(ClownStateEnum.Attack);
-    }
+    //private void ActionAttack()
+    //{
+    //    fsm.Transition(ClownStateEnum.Attack);
+    //}
     
     private void ActionMove()
     {
@@ -186,7 +181,7 @@ public class ClownController : MonoBehaviour
     {
         
         var pursuit = new Pursuit(target, transform, timeAvoidance);
-        _obsAvoidance = new ObstacleAvoidance(transform, radius, mask, maxObstacles, angle);
+        //_obsAvoidance = new ObstacleAvoidance(transform, radius, mask, maxObstacles, angle);
         _steering = pursuit;
     }
 }
