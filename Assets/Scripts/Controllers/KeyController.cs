@@ -10,6 +10,7 @@ public class KeyController : MonoBehaviour
         if (player != null)
         {
             GameManager.hasKey = true;
+            GameManager.instance.ActivateKeyImage();
             Destroy(gameObject);
         }
     }
