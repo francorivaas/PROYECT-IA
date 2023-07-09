@@ -8,6 +8,8 @@ public class Leader : MonoBehaviour, IFlocking
     public EnemyFlocking flock;
     public float multiplier;
 
+    public Transform newTarget;
+
     public Transform GetTarget()
     {
         return flock.currentObjective;
@@ -15,6 +17,6 @@ public class Leader : MonoBehaviour, IFlocking
 
     public Vector3 GetDir(List<IBoid> boids, IBoid self)
     {
-        return (GetTarget().position - self.Position).normalized * multiplier;
+        return (newTarget.position - self.Position).normalized * multiplier;
     }
 }
