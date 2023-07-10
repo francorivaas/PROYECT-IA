@@ -71,12 +71,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 5
   speed: 2
-  objWaypoint: {fileID: 0}
+  objWaypoint: {fileID: 2114125783232106242, guid: 8a8f5c430d96a3c458d209e787a76c6c, type: 3}
   waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 3854117563145865246, guid: 6bdeeeafd95a98a4b8ae1857167a4d24, type: 3}
+  - {fileID: 3983958005760630207, guid: 7df95e313c2b7d445a9917cf4b3f0c36, type: 3}
+  - {fileID: 6086852963401161261, guid: c71d7ed4492b89f46ae367ab0215182f, type: 3}
+  - {fileID: 2114125783232106242, guid: 8a8f5c430d96a3c458d209e787a76c6c, type: 3}
   waypointMark: 0
 --- !u!114 &722451315290947051
 MonoBehaviour:
