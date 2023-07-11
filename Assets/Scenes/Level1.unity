@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.30784726, g: 0.072454035, b: 0.08349836, a: 1}
+  m_IndirectSpecularColor: {r: 0.3078476, g: 0.07245411, b: 0.08349859, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1065,7 +1065,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3680132104234244585, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3680132104234244586, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
       propertyPath: m_RootOrder
@@ -1221,11 +1221,11 @@ PrefabInstance:
       objectReference: {fileID: 1004741286}
     - target: {fileID: 7610693009898499833, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7610693009898499833, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
@@ -1366,7 +1366,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3680132104234244585, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3680132104234244586, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
       propertyPath: m_RootOrder
@@ -1526,11 +1526,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7610693009898499833, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7610693009898499833, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
@@ -2412,7 +2412,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3680132104234244585, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3680132104234244586, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
       propertyPath: m_RootOrder
@@ -2568,11 +2568,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7610693009898499833, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7610693009898499833, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
@@ -12737,7 +12737,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3680132104234244585, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3680132104234244586, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
       propertyPath: m_RootOrder
@@ -12893,11 +12893,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7610693009898499833, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7610693009898499833, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
@@ -16430,7 +16430,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3680132104234244585, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3680132104234244586, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
       propertyPath: m_RootOrder
@@ -16586,11 +16586,11 @@ PrefabInstance:
       objectReference: {fileID: 1306181318}
     - target: {fileID: 7610693009898499833, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7610693009898499833, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 625f4935b8ae8604aa515db585a7d4e0, type: 3}
@@ -25349,6 +25349,10 @@ PrefabInstance:
       value: Flocking Clown
       objectReference: {fileID: 0}
     - target: {fileID: 722451315290947050, guid: c42f13becdd456d49ba23d25cbce75b2, type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 1995208931520773049}
+    - target: {fileID: 722451315290947050, guid: c42f13becdd456d49ba23d25cbce75b2, type: 3}
       propertyPath: objWaypoint
       value: 
       objectReference: {fileID: 868141350}
@@ -25516,7 +25520,7 @@ MonoBehaviour:
   visionAngle: 0
   maxIdleTime: 0
   maxPursuitTime: 0
-  target: {fileID: 0}
+  target: {fileID: 462940950}
   layer:
     serializedVersion: 2
     m_Bits: 0
@@ -25539,7 +25543,7 @@ MonoBehaviour:
   avoidanceMaxObstacles: 0
   avoidanceMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   avoidanceMultiplier: 0
   waypointObjective: {fileID: 0}
 --- !u!1001 &2114125783025157668

@@ -48,7 +48,7 @@ public class ClownModel : MonoBehaviour
         lifeController = GetComponent<LifeController>();
         body = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
-        lifeController.OnHit += OnHit;
+       // lifeController.OnHit += OnHit;
         SetAttackTimer(attackTimer);
     }
 

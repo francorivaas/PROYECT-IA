@@ -6,11 +6,10 @@ public class EnemyFlocking : MonoBehaviour, IBoid
 {
     public float radius;
     public float speed;
-    public FlockWaypoint objWaypoint;
-    public List<FlockWaypoint> waypoints;
     private Rigidbody body;
     public int waypointMark = 0;
     private FlockingManager flockManager;
+    public Transform leader;
 
 
     private void Awake()
@@ -22,10 +21,10 @@ public class EnemyFlocking : MonoBehaviour, IBoid
 
     private void Start()
     {
-        for(int i = 0; i < waypoints.Count; i++)
-        {
-            waypoints[i].OnReachWaypoint += SwitchHivemindObjective;
-        }
+        //for(int i = 0; i < waypoints.Count; i++)
+        //{
+        //    waypoints[i].OnReachWaypoint += SwitchHivemindObjective;
+        //}
     }
 
     public Vector3 Position => transform.position;
@@ -55,31 +54,31 @@ public class EnemyFlocking : MonoBehaviour, IBoid
         Gizmos.DrawWireSphere(Position, radius);
     }
 
-    public bool ReachedWaypoint()
-    {
-        //OnReachWaypoint?.Invoke();
-        if (Vector3.Distance(transform.position, objWaypoint.transform.position) < 3f)
-        {
-            //OnReachWaypoint?.Invoke();
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+    //public bool ReachedWaypoint()
+    //{
+    //    //OnReachWaypoint?.Invoke();
+    //    if (Vector3.Distance(transform.position, leader.position) < 3f)
+    //    {
+    //        //OnReachWaypoint?.Invoke();
+    //        return true;
+    //    }
+    //    else
+    //    {
+    //        return false;
+    //    }
+    //}
 
-    public void SwitchHivemindObjective()
-    {
-        waypointMark++;
-        if (waypoints.Count - 1 < waypointMark) waypointMark = 0;
-        objWaypoint = waypoints[waypointMark];
-    }
+    //public void SwitchHivemindObjective()
+    //{
+    //    waypointMark++;
+    //    if (waypoints.Count - 1 < waypointMark) waypointMark = 0;
+    //    objWaypoint = waypoints[waypointMark];
+    //}
 
-    private FlockWaypoint Objective()
-    {
-        return waypoints[waypointMark];
-    }
+    //private FlockWaypoint Objective()
+    //{
+    //    return waypoints[waypointMark];
+    //}
 
     private void OnTriggerEnter(Collider other)
     {
@@ -94,8 +93,8 @@ public class EnemyFlocking : MonoBehaviour, IBoid
         }
     }
 
-    public Transform currentObjective => Objective().transform;
-    public bool IsOnWaypoint => ReachedWaypoint();
+    public Transform currentObjective => leader;
+    //public bool IsOnWaypoint => ReachedWaypoint();
     public Vector3 GetDir => flockManager.Run();
 
 
