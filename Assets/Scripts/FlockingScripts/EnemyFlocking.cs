@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyFlocking : MonoBehaviour, IBoid
@@ -11,10 +9,8 @@ public class EnemyFlocking : MonoBehaviour, IBoid
     private FlockingManager flockManager;
     public Transform leader;
 
-
     private void Awake()
     {
-        
         flockManager = GetComponent<FlockingManager>();
         body = GetComponent<Rigidbody>();    
     }
@@ -45,8 +41,6 @@ public class EnemyFlocking : MonoBehaviour, IBoid
         dir.y = 0;
         transform.forward = Vector3.Lerp(transform.forward, dir, 0.2f);
     }
-
-
 
     private void OnDrawGizmos()
     {
@@ -88,15 +82,13 @@ public class EnemyFlocking : MonoBehaviour, IBoid
             if (player.GetComponent<LifeController>() != null)
             {
                 player.GetComponent<LifeController>().TakeDamage(2);
-
             }
         }
     }
 
     public Transform currentObjective => leader;
+
     //public bool IsOnWaypoint => ReachedWaypoint();
+
     public Vector3 GetDir => flockManager.Run();
-
-
-
 }
