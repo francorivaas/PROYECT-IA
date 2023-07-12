@@ -10,9 +10,14 @@ public class Leader : MonoBehaviour, IFlocking
 
     public Transform newTarget;
 
-    public Transform GetTarget()
+    public Transform GetTargetOne()
     {
-        return flock.currentObjective;
+        return flock.currentObjective1;
+    }
+
+    public Transform GetTargetTwo()
+    {
+        return flock.currentObjective1;
     }
 
     public Vector3 GetDir(List<IBoid> boids, IBoid self)

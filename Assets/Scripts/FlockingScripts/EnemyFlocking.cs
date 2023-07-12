@@ -7,7 +7,8 @@ public class EnemyFlocking : MonoBehaviour, IBoid
     private Rigidbody body;
     public int waypointMark = 0;
     private FlockingManager flockManager;
-    public Transform leader;
+    public Transform leaderTroop1;
+    public Transform leaderTroop2;
 
     private void Awake()
     {
@@ -86,7 +87,8 @@ public class EnemyFlocking : MonoBehaviour, IBoid
         }
     }
 
-    public Transform currentObjective => leader;
+    public Transform currentObjective1 => leaderTroop1;
+    public Transform currentObjective2 => leaderTroop2;
 
     //public bool IsOnWaypoint => ReachedWaypoint();
 
