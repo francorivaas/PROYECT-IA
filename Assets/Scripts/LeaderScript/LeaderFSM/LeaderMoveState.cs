@@ -13,6 +13,11 @@ public class LeaderMoveState<T> : LeaderStateBase<T>
     public override void Awake()
     {
         base.Awake();
+        if (leader.IsPostPursuit)
+        {
+            leader.StartingLastSeenSpot();
+            leader.FollowLastSeenPosition();
+        }
 
     }
 
@@ -20,14 +25,16 @@ public class LeaderMoveState<T> : LeaderStateBase<T>
     {
         base.Execute();
 
-        if (leader.IsOnWaypoint)
-        {
-            leader.GetNextWaypointMark();
-        }
 
-        leader.LookDir(leader.NextWaypointDir);
-        leader.Move(leader.NextWaypointDir);
+            if (leader.IsOnWaypoint)
+            {
+                leader.GetNextWaypointMark();
+            }
+
+            leader.LookDir(leader.NextWaypointDir);
+            leader.Move(leader.NextWaypointDir);
         
+
     }
 
     public override void Sleep()

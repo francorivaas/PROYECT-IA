@@ -8,17 +8,16 @@ public class LeaderModel : MonoBehaviour
     public float visionRange;
     public float visionAngle;
     public float maxIdleTime;
-    public float maxPursuitTime;
+    public float maxAttackTime;
     private Rigidbody body;
-    private PlayerModel lastPlayerTouch;
+    private PlayerModel lastObjectiveTouched;
     private Animator animator;
     public PlayerModel target;
 
     private float idleTimer;
     private float pursuitTimer;
-    private bool touchPlayer;
-    private bool touchFloor;
-    private bool lookingAtPlayer;
+    private bool touchObjective;
+    private bool lookingAtObjective;
 
     public List<Transform> waypoints;
     public List<Nodos> deadEndWaypoints;
@@ -27,7 +26,7 @@ public class LeaderModel : MonoBehaviour
 
     private bool startIdle = false;
     private bool stayIdle = false;
-    private bool tookDamage = false;
+    private bool lostFromView = false;
     private LifeController lifeController;
     private float _attackTimer;
 
@@ -50,6 +49,7 @@ public class LeaderModel : MonoBehaviour
         lifeController = GetComponent<LifeController>();
         body = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
+        _attackTimer = 0;
     }
 
     public void GetNextWaypointMark()
@@ -86,13 +86,31 @@ public class LeaderModel : MonoBehaviour
 
     public void ResumeMovePostPursuit()
     {
-        SetStartingPoint();
+        SetStartingPoint(transform);
         agentController.AStarRun();
     }
 
-    private void SetStartingPoint()
+    public void FollowLastSeenPosition()
     {
-        var getNodes = CheckNodesAround(transform);
+        SetStartingPoint(transform);
+        SetEndPoint(target.transform);
+        agentController.AStarRun();
+    }
+
+
+    private void SetEndPoint(Transform transforms)
+    {
+        var getNodes = CheckNodesAround(transforms);
+        Nodos nodo = getNodes.GetComponent<Nodos>();
+        if(nodo != null)
+        {
+            agentController.goalNode = nodo;
+        }
+    }
+
+    private void SetStartingPoint(Transform transforms)
+    {
+        var getNodes = CheckNodesAround(transforms);
         Nodos nodo = getNodes.GetComponent<Nodos>();
         if (nodo != null)
         {
@@ -127,6 +145,46 @@ public class LeaderModel : MonoBehaviour
 
         }
 
+    }
+
+    public bool CheckRange(Transform target)
+    {
+        float distance = Vector3.Distance(transform.position, target.position);
+        return distance < visionRange;
+    }
+
+    public bool CheckAngle(Transform target)
+    {
+        Vector3 forwardVector = transform.forward;
+        Vector3 directionTarget = (target.position - transform.position).normalized;
+        float angleToTarget = Vector3.Angle(forwardVector, directionTarget);
+
+        return visionAngle / 2 > angleToTarget;
+    }
+
+    public bool CheckView(Transform target)
+    {
+        RaycastHit hit;
+
+        Vector3 difference = target.position - transform.position;
+        Vector3 differenceToTarget = difference.normalized;
+        float distanceToTarget = difference.magnitude;
+
+        return Physics.Raycast(transform.position, differenceToTarget, out hit, distanceToTarget);
+    }
+
+    public bool LookingAtPlayer()
+    {
+        if (CheckRange(target.transform) && CheckAngle(target.transform) && CheckView(target.transform))
+        {
+            lookingAtObjective = true;
+        }
+
+        else
+        {
+            lookingAtObjective = false;
+        }
+        return lookingAtObjective;
     }
 
     public void Move(Vector3 dir)
@@ -172,6 +230,27 @@ public class LeaderModel : MonoBehaviour
         return dirToAvoid.normalized;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        PlayerModel objective = other.gameObject.GetComponent<PlayerModel>();
+        if (objective != null)
+        {
+            touchObjective = true;
+            lastObjectiveTouched = objective;
+
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        PlayerModel objective = other.gameObject.GetComponent<PlayerModel>();
+        if (objective != null)
+        {
+            touchObjective = false;
+            lastObjectiveTouched = objective;
+        }
+    }
+
     public Vector3 GetDirectionToWaypoint()
     {
         return (waypoints[waypointMark].transform.position - transform.position).normalized;
@@ -182,6 +261,16 @@ public class LeaderModel : MonoBehaviour
         return (Vector3.Distance(transform.position, waypointObjective.position) < 2f);
     }
 
+    public void LostFromViewPostPursuit()
+    {
+        lostFromView = true;
+    }
+
+    public void StartingLastSeenSpot()
+    {
+        lostFromView = false;
+    }
+
     /// 
     /// Timer Management
     /// 
@@ -190,20 +279,17 @@ public class LeaderModel : MonoBehaviour
     {
         return Random.Range(1, maxIdleTime);
     }
-    public float GetPursuitTime()
-    {
-        //genero el timer
-        return maxPursuitTime;
-    }
+
+
 
     public void SetIdleTimer(float timer)
     {
         idleTimer = timer;
     }
 
-    public void SetPursuitTime(float timer)
+    public void SetAttackTimer(float timer)
     {
-        pursuitTimer = timer;
+        _attackTimer = attackTimer;
     }
 
     public void RunIdleTimer()
@@ -212,10 +298,12 @@ public class LeaderModel : MonoBehaviour
         idleTimer -= Time.deltaTime;
     }
 
-    public void RunPursuitTimer()
+    public void RunAttackTimer()
     {
-        pursuitTimer -= Time.deltaTime;
+        _attackTimer -= Time.deltaTime;
     }
+
+
 
     public float CurrentIdleTimer
     {
@@ -229,15 +317,15 @@ public class LeaderModel : MonoBehaviour
         }
     }
 
-    public float CurrentPursuitTimer
+    public float CurrentAttackTimer
     {
         set
         {
-            pursuitTimer = value;
+            _attackTimer = value;
         }
         get
         {
-            return pursuitTimer;
+            return _attackTimer;
         }
     }
 
@@ -258,4 +346,11 @@ public class LeaderModel : MonoBehaviour
     public bool IsOnWaypoint => ReachedWaypoint();
     public bool IsIdleUp => stayIdle;
     public bool ResetIdleTimer => startIdle;
+    public bool IsLookingAtObjective => lookingAtObjective;
+
+    public bool IsPostPursuit => lostFromView;
+
+    public bool IsTouchingObjective => touchObjective;
+
+    public PlayerModel LastPlayerTouched => lastObjectiveTouched;
 }

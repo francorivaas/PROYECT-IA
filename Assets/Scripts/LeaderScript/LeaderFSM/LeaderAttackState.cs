@@ -2,17 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LeaderAttackState : MonoBehaviour
+public class LeaderAttackState<T> : LeaderStateBase<T>
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Awake()
     {
+        base.Awake();
+        leader.SetAttackTimer(leader.maxAttackTime);
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Execute()
     {
-        
+        base.Execute();
+        var objective = leader.LastPlayerTouched;
+
+        if (objective != null)
+        {
+            if (objective.GetComponent<LifeController>() != null)
+            {
+                objective.GetComponent<LifeController>().TakeDamage(10);
+
+            }
+        }
     }
 }

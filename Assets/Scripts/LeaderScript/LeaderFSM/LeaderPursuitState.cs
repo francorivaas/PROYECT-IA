@@ -5,6 +5,7 @@ using UnityEngine;
 public class LeaderPursuitState<T> : LeaderStateBase<T>
 {
     ISteering _action;
+    Vector3 dir;
 
     public LeaderPursuitState(ISteering action)
     {
@@ -24,11 +25,18 @@ public class LeaderPursuitState<T> : LeaderStateBase<T>
 
         base.Execute();
 
+        dir = _action.GetDir().normalized;
+
+        leader.Move(dir);
+        leader.LookDir(dir);
+
+        
 
     }
 
     public override void Sleep()
     {
         base.Sleep();
+        leader.LostFromViewPostPursuit();
     }
 }
