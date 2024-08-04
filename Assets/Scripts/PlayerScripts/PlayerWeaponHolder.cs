@@ -23,6 +23,6 @@ public class PlayerWeaponHolder : MonoBehaviour
     public void SetWeapon(Weapon currentWeapon)
     {
         this.currentWeapon = currentWeapon;
-        weaponName.text = currentWeapon.gameObject.name.ToString();
+        //weaponName.text = currentWeapon.gameObject.name.ToString();
     }
 }

@@ -221,14 +221,17 @@ public class ClownModel : MonoBehaviour
 
     public bool LookingAtPlayer()
     {
-        if (CheckRange(target.transform) && CheckAngle(target.transform) && CheckView(target.transform))
+        if (target != null)
         {
-            lookingAtPlayer = true;
-        }
+            if (CheckRange(target.transform) && CheckAngle(target.transform) && CheckView(target.transform))
+            {
+                lookingAtPlayer = true;
+            }
 
-        else
-        {
-            lookingAtPlayer = false;
+            else
+            {
+                lookingAtPlayer = false;
+            }
         }
         return lookingAtPlayer;
     }

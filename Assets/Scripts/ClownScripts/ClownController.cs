@@ -14,7 +14,6 @@ public class ClownController : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("Hey");
         clown = GetComponent<ClownModel>();
         
         InitializeSteering();
@@ -179,9 +178,11 @@ public class ClownController : MonoBehaviour
 
     private void InitializeSteering()
     {
-        
-        var pursuit = new Pursuit(target, transform, timeAvoidance);
-        //_obsAvoidance = new ObstacleAvoidance(transform, radius, mask, maxObstacles, angle);
-        _steering = pursuit;
+        if (target != null)
+        {
+            var pursuit = new Pursuit(target, transform, timeAvoidance);
+            //_obsAvoidance = new ObstacleAvoidance(transform, radius, mask, maxObstacles, angle);
+            _steering = pursuit;
+        }
     }
 }
