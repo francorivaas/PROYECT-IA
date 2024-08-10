@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 5145385355314246986}
   - component: {fileID: 319920310588734366}
   - component: {fileID: 8332328905615078558}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Clown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,10 +112,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34d7843b7a914144aba7efa99cb4589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxBoids: 5
+  maxBoids: 50
   maskBoids:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 65536
 --- !u!114 &1155229525931015650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,7 +168,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b89c3fe3446922f4fa68fa71558c8513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 8576922957126638080, guid: 530c38716ab2e074fbd06d249ba16341, type: 3}
   multiplier: 5
 --- !u!1 &3680132104379035681
 GameObject:

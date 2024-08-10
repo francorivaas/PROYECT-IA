@@ -3,23 +3,27 @@ using UnityEngine;
 
 public class FlockingManager : MonoBehaviour
 {
-    public int maxBoids = 5;
-    public LayerMask maskBoids;
-    private EnemyFlocking flock;
-    IFlocking[] flockings;
+    [SerializeField] private int maxBoids;
+    [SerializeField] private LayerMask maskBoids;
+
     IBoid self;
+    IFlocking[] flockings;
     Collider[] colliders;
     List<IBoid> boids;
+    
+    //
+    private EnemyFlocking flock;
     FSM<FlockingStateEnum> fsm;
     State<FlockingStateEnum> _initState;
+    //
 
     private void Awake()
     {
-        flock = GetComponent<EnemyFlocking>();
-        flockings = GetComponents<IFlocking>();
         self = GetComponent<IBoid>();
-        colliders = new Collider[maxBoids];
+        flockings = GetComponents<IFlocking>();
+        flock = GetComponent<EnemyFlocking>();
         boids = new List<IBoid>();
+        colliders = new Collider[maxBoids];
 
         InitializedFSM();
     }

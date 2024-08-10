@@ -4,41 +4,55 @@ using UnityEngine;
 
 public class ClownModel : MonoBehaviour
 {
-    //public float jumpSpeed;
     public float visionRange;
     public float visionAngle;
+
     public float maxIdleTime;
     public float maxPursuitTime;
+    
     private Rigidbody body;
     private PlayerModel lastPlayerTouch;
     private Animator animator;
     public PlayerModel target;
     public LayerMask layer;
+
     private float idleTimer;
     private float pursuitTimer;
+    
     private bool touchPlayer;
     private bool touchFloor;
     private bool lookingAtPlayer;
+    
     public List<Transform> waypoints;
     public List<Nodos> deadEndWaypoints;
+    
     public Nodos startingWaypoint;
+    
     public AgentController agentController;
+    
     private bool startIdle = false;
     private bool tookDamage = false;
+    
     private LifeController lifeController;
+    
     private float _attackTimer;
 
     public LayerMask searchMask;
+    
     public float attackTimer;
     public float speed;
+    
     public int waypointMark;
     public int nodeMark;
     public int damage = 10;
 
     public float avoidanceAngle;
     public float avoidanceRadius;
+    
     public int avoidanceMaxObstacles;
+    
     public LayerMask avoidanceMask;
+    
     public float avoidanceMultiplier;
     //private bool reverseWaypointTraversal = false;
     public Transform waypointObjective; //=> waypoints[waypointMark];
