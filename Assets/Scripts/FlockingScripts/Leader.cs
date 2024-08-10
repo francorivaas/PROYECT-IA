@@ -4,17 +4,22 @@ using UnityEngine;
 
 public class Leader : MonoBehaviour, IFlocking
 {
-    public Transform target;
-    public EnemyFlocking flock;
-    public float multiplier;
-
-    public Transform GetTarget()
-    {
-        return flock.currentObjective;
-    }
+    private ClownModel target;
+    [SerializeField] private float multiplier;
 
     public Vector3 GetDir(List<IBoid> boids, IBoid self)
     {
-        return (GetTarget().position - self.Position).normalized * multiplier;
+        return (target.transform.position - self.Position).normalized * multiplier;
     }
+
+    public void SetLeader(ClownModel target)
+    {
+        this.target = target;
+    }
+
+    public ClownModel GetTarget()
+    {
+        return target;
+    }
+
 }

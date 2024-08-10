@@ -97,7 +97,4 @@ public class EnemyFlocking : MonoBehaviour, IBoid
     public Transform currentObjective => Objective().transform;
     public bool IsOnWaypoint => ReachedWaypoint();
     public Vector3 GetDir => flockManager.Run();
-
-
-
 }
