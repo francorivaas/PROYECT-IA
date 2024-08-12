@@ -6,10 +6,13 @@ public class Node : MonoBehaviour
 {
     public List<Node> neightbourds;//<- Esto es lo unico que importa
 
+    public List<Nodos> neighbours;
+    public bool IsEndpoint;
 
     //Si utilizan este codigo con los raycast en el start/update/realtime son un punto menos por raycast.
     public bool hasTrap;
     Material mat;
+
     private void Start()
     {
         mat = GetComponent<Renderer>().material;
@@ -18,6 +21,7 @@ public class Node : MonoBehaviour
         GetNeightbourd(Vector3.forward);
         GetNeightbourd(Vector3.back);
     }
+
     private void Update()
     {
         if (hasTrap)
@@ -25,6 +29,7 @@ public class Node : MonoBehaviour
         else
             mat.color = Color.white;
     }
+
     void GetNeightbourd(Vector3 dir)
     {
         RaycastHit hit;

@@ -5,6 +5,7 @@ using UnityEngine;
 public class AgentController : MonoBehaviour
 {
     public ClownModel clown;
+
     public Nodos goalNode;
     public Nodos startNode;
 
